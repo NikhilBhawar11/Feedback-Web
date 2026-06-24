@@ -1460,8 +1460,10 @@ const AiInsightsTab = {
       interpDesc = "Opportunities exist to bridge key skill gaps in AI and cloud practices.";
     }
 
-    document.getElementById("ai-readiness-interpretation").innerText = interp;
-    document.getElementById("ai-readiness-interpretation-desc").innerText = interpDesc;
+    const readinessInterpEl = document.getElementById("ai-readiness-interpretation");
+    const readinessDescEl = document.getElementById("ai-readiness-interpretation-desc");
+    if (readinessInterpEl) readinessInterpEl.innerText = interp;
+    if (readinessDescEl) readinessDescEl.innerText = interpDesc;
 
     // Animate SVG Gauge
     const gaugeFill = document.querySelector(".gauge-fill");
