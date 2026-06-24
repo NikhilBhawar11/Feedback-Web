@@ -306,6 +306,32 @@ button {
 /* ==========================================
    1. LANDING VIEW
    ========================================== */
+.uni-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  animation: fadeIn var(--transition-normal);
+}
+
+.uni-logo-icon {
+  font-size: 1.6rem;
+}
+
+.university-title {
+  font-size: 1.5rem;
+  font-weight: 800;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--primary);
+  margin: 0;
+}
+
+.dark .university-title {
+  color: #60a5fa;
+}
+
 .hero-section {
   padding: 80px 0;
   text-align: center;
@@ -461,6 +487,40 @@ button {
   color: var(--secondary);
   width: 20px;
   height: 20px;
+}
+
+/* Landing Page Footer Accent - Powered by AIML */
+.landing-footer-accent {
+  padding: 30px 0;
+  text-align: center;
+  border-top: 1px solid var(--border-color);
+  background: linear-gradient(to right, rgba(30, 58, 138, 0.01), rgba(37, 99, 235, 0.015), rgba(30, 58, 138, 0.01));
+}
+
+.powered-text {
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.dept-highlight {
+  color: var(--secondary);
+  font-weight: 700;
+  position: relative;
+  display: inline-block;
+  padding: 0 4px;
+}
+
+.dept-highlight::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--accent);
+  border-radius: var(--radius-full);
 }
 
 /* Footer */
