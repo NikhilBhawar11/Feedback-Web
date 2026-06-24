@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HR Summit Insight Portal</title>
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+
+  <!-- CDNs for visual libraries -->
+  <!-- ChartJS for data analytics charts -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- SheetJS for exporting directories to Excel spreadsheets -->
+  <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
+  <!-- QRCode.js for generating QR code indicators -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+</head>
+
+<body>
+
+  <!-- ==========================================
+       GLOBAL APP HEADER & NAVIGATION
+       ========================================== -->
+  <header class="app-header">
+    <div class="container header-content">
+      <a href="#" class="logo" data-nav="landing">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2.5"
+          stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round"
+            d="M3.75 3v11.25A2.25 2.25 0 0 0 6 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0 1 18 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0h.5m-.5 0h-9.5m0 0h-.5" />
+        </svg>
+        <span>SummitInsight</span>
+      </a>
+      <nav class="nav-actions">
+        <a href="#" class="btn btn-secondary" data-nav="landing">Home</a>
+        <a href="#" class="btn btn-secondary" data-nav="admin" id="nav-admin-link">Admin Dashboard</a>
+        <button class="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Theme">
+          <!-- Icon will be injected by JS -->
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================
+       VIEW CONTAINER
+       ========================================== -->
+  <main style="flex-grow: 1;">
+
+    <!-- 1. LANDING VIEW -->
+    <section id="landing-view" class="view-panel active">
+      <div class="hero-section">
+        <div class="container">
+          <span class="hero-tag">Annual HR Summit 2026</span>
+          <h1 class="hero-title text-gradient">HR Summit Insight Portal</h1>
+          <p class="hero-subtitle">Connecting Industry Expectations with Academic Excellence. Gather valuable industry
+            trends, skill demands, and career insights to shape future-ready graduates.</p>
+          <div class="hero-ctas">
+            <a href="#" class="btn btn-primary btn-accent" data-nav="form"
+              style="padding: 14px 28px; font-size: 1.05rem;">
+              <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2.5">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                  d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              Submit Feedback Form
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- About & Info Grid -->
+      <div class="info-section">
+        <div class="container">
+          <div class="info-layout">
+            <div class="info-content">
+              <h2>About The HR Summit</h2>
+              <p>The annual HR Summit brings together corporate recruiters, talent acquisition leads, and academic
+                advisors. Our focus is to bridge curriculum methodologies with modern market frameworks, ensuring
+                engineering and management students develop industry-demanded skillsets.</p>
+              <p>By collecting feedback digitally, our placement cell compiles real-time hiring metrics, skill gaps, and
+                salary expectations to continuously optimize the institution's curriculum.</p>
+              <h3 style="margin-top: 24px; font-weight: 800;">Key Benefits</h3>
+              <div class="contact-info-grid" style="grid-template-columns: 1fr 1fr; margin-top:12px;">
+                <div style="display:flex; gap:8px; align-items:flex-start;">
+                  <span style="color:var(--success); font-weight:bold;">✓</span>
+                  <div><strong>For Students:</strong> Clear career targets, internships, and curriculum aligned with
+                    standard frameworks.</div>
+                </div>
+                <div style="display:flex; gap:8px; align-items:flex-start;">
+                  <span style="color:var(--success); font-weight:bold;">✓</span>
+                  <div><strong>For Industry:</strong> Hire graduates who are productive from day one, equipped with
+                    modern tools.</div>
+                </div>
+              </div>
+            </div>
+            <div class="info-visuals">
+              <div class="info-visuals-mockup">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"
+                    d="M9 17.25v1.007a3 3 0 0 1-.879 2.122L7.5 21h9l-.621-.621A3 3 0 0 1 15 18.257V17.25m6-12V15a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 15V5.25m18 0A2.25 2.25 0 0 0 18.75 3H5.25A2.25 2.25 0 0 0 3 5.25m18 0V12a2.25 2.25 0 0 1-2.25 2.25H5.25A2.25 2.25 0 0 1 3 12V5.25" />
+                </svg>
+                <div style="font-weight: 700; font-size: 1.2rem; margin-bottom: 8px;">Interactive SaaS Analytics</div>
+                <div style="font-size: 0.9rem; opacity: 0.8;">Instantly visualizes expectations, hiring trends, and
+                  curriculum recommendations.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Contact details -->
+      <div class="info-section" style="border-top:1px solid var(--border-color); background:rgba(30,58,138,0.01)">
+        <div class="container">
+          <h3 style="font-weight:800; text-align:center; margin-bottom:24px;">Summit Coordinating Team</h3>
+          <div class="contact-info-grid">
+            <div class="contact-item card-like"
+              style="justify-content:center; flex-direction:column; padding:20px; border:1px solid var(--border-color); border-radius:var(--radius-md); background:var(--bg-surface);">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M15 10.5a3 3 0 1 1-6 0 3 3 0 0 1 6 0z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1 1 15 0z" />
+              </svg>
+              <strong>Corporate Placements Cell</strong>
+              <span>Administrative Block, Floor 2</span>
+            </div>
+            <div class="contact-item card-like"
+              style="justify-content:center; flex-direction:column; padding:20px; border:1px solid var(--border-color); border-radius:var(--radius-md); background:var(--bg-surface);">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M21.75 6.75v10.5a2.25 2.25 0 0 1-2.25 2.25h-15a2.25 2.25 0 0 1-2.25-2.25V6.75m19.5 0A2.25 2.25 0 0 0 19.5 4.5h-15a2.25 2.25 0 0 0-2.25 2.25m19.5 0v.243a2.25 2.25 0 0 1-1.07 1.916l-7.5 4.615a2.25 2.25 0 0 1-2.36 0L3.32 8.91a2.25 2.25 0 0 1-1.07-1.916V6.75" />
+              </svg>
+              <strong>Email Queries</strong>
+              <span>bhawarnikhil4@gmail.com</span>
+            </div>
+            <div class="contact-item card-like"
+              style="justify-content:center; flex-direction:column; padding:20px; border:1px solid var(--border-color); border-radius:var(--radius-md); background:var(--bg-surface);">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M2.25 6.75c0 8.284 6.716 15 15 15h2.25a2.25 2.25 0 0 0 2.25-2.25v-1.372c0-.516-.351-.966-.852-1.091l-4.423-1.106c-.44-.11-.902.055-1.173.417l-.97 1.293c-2.824-1.502-5.185-3.863-6.69-6.69l1.293-.97c.362-.271.527-.734.417-1.173L6.963 3.102a1.125 1.125 0 0 0-1.091-.852H4.5A2.25 2.25 0 0 0 2.25 4.5v2.25z" />
+              </svg>
+              <strong>Helpline Contacts</strong>
+              <span>+91 9922173119</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 2. HR FEEDBACK FORM (MULTI-STEP WIZARD) -->
+    <section id="form-view" class="view-panel">
+      <div class="form-page-container">
+        <div class="container">
+          <div class="form-wizard-card glass-card">
+
+            <!-- Progress Steps Bar -->
+            <div class="wizard-progress">
+              <div class="progress-bar-fill"></div>
+              <div class="wizard-step-node active"><span class="step-label">HR Info</span>1</div>
+              <div class="wizard-step-node"><span class="step-label">Event Feed</span>2</div>
+              <div class="wizard-step-node"><span class="step-label">Skill Expects</span>3</div>
+              <div class="wizard-step-node"><span class="step-label">Hiring Stats</span>4</div>
+              <div class="wizard-step-node"><span class="step-label">Curriculum</span>5</div>
+              <div class="wizard-step-node"><span class="step-label">Suggestions</span>6</div>
+            </div>
+
+            <!-- Form Wrapper -->
+            <form id="hr-feedback-form" onsubmit="return false;">
+
+              <!-- STEP 1: HR PERSONAL INFORMATION -->
+              <div class="form-step-content active" id="step-1">
+                <div class="step-header">
+                  <h3>Section 1: HR Profile Details</h3>
+                  <p>Provide your official contact details for networking and coordination.</p>
+                </div>
+                <div class="input-grid">
+                  <div class="form-group">
+                    <label for="hr-name">Full Name <span class="required">*</span></label>
+                    <input type="text" id="hr-name" class="form-control" placeholder="e.g. Srinivas Rao">
+                  </div>
+                  <div class="form-group">
+                    <label for="hr-designation">Designation <span class="required">*</span></label>
+                    <input type="text" id="hr-designation" class="form-control"
+                      placeholder="e.g. Talent Acquisition Head">
+                  </div>
+                  <div class="form-group">
+                    <label for="hr-company">Company Name <span class="required">*</span></label>
+                    <input type="text" id="hr-company" class="form-control" placeholder="e.g. Google India">
+                  </div>
+                  <div class="form-group">
+                    <label for="hr-domain">Industry Domain <span class="required">*</span></label>
+                    <select id="hr-domain" class="form-control">
+                      <option value="">Select industry domain</option>
+                      <option value="Technology">Technology</option>
+                      <option value="Finance">Finance</option>
+                      <option value="Consulting">Consulting</option>
+                      <option value="Healthcare">Healthcare</option>
+                      <option value="E-commerce">E-commerce</option>
+                      <option value="Manufacturing">Manufacturing</option>
+                      <option value="EdTech">EdTech</option>
+                      <option value="Other">Other</option>
+                    </select>
+                  </div>
+                  <div class="form-group">
+                    <label for="hr-email">Email Address <span class="required">*</span></label>
+                    <input type="email" id="hr-email" class="form-control" placeholder="e.g. name@company.com">
+                  </div>
+                  <div class="form-group">
+                    <label for="hr-mobile">Mobile Number <span class="required">*</span></label>
+                    <input type="tel" id="hr-mobile" class="form-control" placeholder="e.g. 9876543210">
+                  </div>
+                  <div class="form-group">
+                    <label for="hr-linkedin">LinkedIn Profile URL</label>
+                    <input type="url" id="hr-linkedin" class="form-control"
+                      placeholder="e.g. https://linkedin.com/in/username">
+                  </div>
+                  <div class="form-group">
+                    <label for="hr-city">City <span class="required">*</span></label>
+                    <input type="text" id="hr-city" class="form-control" placeholder="e.g. Bengaluru">
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 2: EVENT FEEDBACK -->
+              <div class="form-step-content" id="step-2">
+                <div class="step-header">
+                  <h3>Section 2: HR Summit Event Feedback</h3>
+                  <p>Rate the organization, hospitality, and event sessions.</p>
+                </div>
+
+                <div class="rating-list">
+                  <!-- Organization -->
+                  <div class="rating-row" id="rating-container-organization">
+                    <span class="rating-label">Event Organization</span>
+                    <div class="stars-container">
+                      <input type="radio" name="rate-organization" id="org-5" value="5" class="star-checkbox"><label
+                        for="org-5" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-4" value="4" class="star-checkbox"><label
+                        for="org-4" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-3" value="3" class="star-checkbox"><label
+                        for="org-3" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-2" value="2" class="star-checkbox"><label
+                        for="org-2" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-1" value="1" class="star-checkbox"><label
+                        for="org-1" class="star-icon">★</label>
+                    </div>
+                  </div>
+
+                  <!-- Hospitality -->
+                  <div class="rating-row" id="rating-container-hospitality">
+                    <span class="rating-label">Hospitality</span>
+                    <div class="stars-container">
+                      <input type="radio" name="rate-hospitality" id="hosp-5" value="5" class="star-checkbox"><label
+                        for="hosp-5" class="star-icon">★</label>
+                      <input type="radio" name="rate-hospitality" id="hosp-4" value="4" class="star-checkbox"><label
+                        for="hosp-4" class="star-icon">★</label>
+                      <input type="radio" name="rate-hospitality" id="hosp-3" value="3" class="star-checkbox"><label
+                        for="hosp-3" class="star-icon">★</label>
+                      <input type="radio" name="rate-hospitality" id="hosp-2" value="2" class="star-checkbox"><label
+                        for="hosp-2" class="star-icon">★</label>
+                      <input type="radio" name="rate-hospitality" id="hosp-1" value="1" class="star-checkbox"><label
+                        for="hosp-1" class="star-icon">★</label>
+                    </div>
+                  </div>
+
+                  <!-- Student Interaction -->
+                  <div class="rating-row" id="rating-container-studentInteraction">
+                    <span class="rating-label">Student Interaction</span>
+                    <div class="stars-container">
+                      <input type="radio" name="rate-studentInteraction" id="stu-5" value="5"
+                        class="star-checkbox"><label for="stu-5" class="star-icon">★</label>
+                      <input type="radio" name="rate-studentInteraction" id="stu-4" value="4"
+                        class="star-checkbox"><label for="stu-4" class="star-icon">★</label>
+                      <input type="radio" name="rate-studentInteraction" id="stu-3" value="3"
+                        class="star-checkbox"><label for="stu-3" class="star-icon">★</label>
+                      <input type="radio" name="rate-studentInteraction" id="stu-2" value="2"
+                        class="star-checkbox"><label for="stu-2" class="star-icon">★</label>
+                      <input type="radio" name="rate-studentInteraction" id="stu-1" value="1"
+                        class="star-checkbox"><label for="stu-1" class="star-icon">★</label>
+                    </div>
+                  </div>
+
+                  <!-- Technical Sessions -->
+                  <div class="rating-row" id="rating-container-technicalSessions">
+                    <span class="rating-label">Technical Sessions Quality</span>
+                    <div class="stars-container">
+                      <input type="radio" name="rate-technicalSessions" id="tech-5" value="5"
+                        class="star-checkbox"><label for="tech-5" class="star-icon">★</label>
+                      <input type="radio" name="rate-technicalSessions" id="tech-4" value="4"
+                        class="star-checkbox"><label for="tech-4" class="star-icon">★</label>
+                      <input type="radio" name="rate-technicalSessions" id="tech-3" value="3"
+                        class="star-checkbox"><label for="tech-3" class="star-icon">★</label>
+                      <input type="radio" name="rate-technicalSessions" id="tech-2" value="2"
+                        class="star-checkbox"><label for="tech-2" class="star-icon">★</label>
+                      <input type="radio" name="rate-technicalSessions" id="tech-1" value="1"
+                        class="star-checkbox"><label for="tech-1" class="star-icon">★</label>
+                    </div>
+                  </div>
+
+                  <!-- Venue Arrangements -->
+                  <div class="rating-row" id="rating-container-venueArrangements">
+                    <span class="rating-label">Venue Arrangements</span>
+                    <div class="stars-container">
+                      <input type="radio" name="rate-venueArrangements" id="ven-5" value="5"
+                        class="star-checkbox"><label for="ven-5" class="star-icon">★</label>
+                      <input type="radio" name="rate-venueArrangements" id="ven-4" value="4"
+                        class="star-checkbox"><label for="ven-4" class="star-icon">★</label>
+                      <input type="radio" name="rate-venueArrangements" id="ven-3" value="3"
+                        class="star-checkbox"><label for="ven-3" class="star-icon">★</label>
+                      <input type="radio" name="rate-venueArrangements" id="ven-2" value="2"
+                        class="star-checkbox"><label for="ven-2" class="star-icon">★</label>
+                      <input type="radio" name="rate-venueArrangements" id="ven-1" value="1"
+                        class="star-checkbox"><label for="ven-1" class="star-icon">★</label>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top:20px;">
+                  <label for="hr-liked-most">What did you like most about the event?</label>
+                  <textarea id="hr-liked-most" class="form-control"
+                    placeholder="Share your positive takeaways..."></textarea>
+                </div>
+              </div>
+
+              <!-- STEP 3: INDUSTRY EXPECTATIONS -->
+              <div class="form-step-content" id="step-3">
+                <div class="step-header">
+                  <h3>Section 3: Academic & Skills Expectations</h3>
+                  <p>Which skills do you expect from fresh graduates joining your industry?</p>
+                </div>
+
+                <div class="form-group">
+                  <label>Expected Core Skills (Select all that apply)</label>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Python"><span>Python</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Java"><span>Java</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="SQL"><span>SQL</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Machine Learning"><span>Machine Learning</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Artificial Intelligence"><span>Artificial Intelligence</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Data Analytics"><span>Data Analytics</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Cloud Computing"><span>Cloud Computing</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="DevOps"><span>DevOps</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Communication Skills"><span>Communication</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Teamwork"><span>Teamwork</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Problem Solving"><span>Problem Solving</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Leadership"><span>Leadership</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Generative AI"><span>Generative AI</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Prompt Engineering"><span>Prompt Eng.</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="expect-skills"
+                        value="Cybersecurity"><span>Cybersecurity</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="skills-other"
+                        value="Other"><span>Other</span></label>
+                  </div>
+                  <input type="text" id="skills-other-val" class="form-control"
+                    placeholder="Specify other skill needs..." style="margin-top: 10px; display: none;">
+                  <script>
+                    document.getElementById('skills-other').addEventListener('change', function () {
+                      document.getElementById('skills-other-val').style.display = this.checked ? 'block' : 'none';
+                    });
+                  </script>
+                </div>
+
+                <div class="form-group" style="margin-top: 24px;">
+                  <label for="hr-focus-skills">Top 5 skills students should focus on <span
+                      class="required">*</span></label>
+                  <textarea id="hr-focus-skills" class="form-control"
+                    placeholder="1. Skill A&#10;2. Skill B&#10;3. Skill C..."></textarea>
+                </div>
+              </div>
+
+              <!-- STEP 4: HIRING INSIGHTS -->
+              <div class="form-step-content" id="step-4">
+                <div class="step-header">
+                  <h3>Section 4: Hiring Insights</h3>
+                  <p>Let us understand your recruitment plans and financial expectations.</p>
+                </div>
+
+                <div class="form-group">
+                  <label>Does your company hire fresh graduates? <span class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="hires-freshers"
+                        value="Yes"><span>Yes</span></label>
+                    <label class="radio-item"><input type="radio" name="hires-freshers"
+                        value="No"><span>No</span></label>
+                    <label class="radio-item"><input type="radio" name="hires-freshers"
+                        value="Occasionally"><span>Occasionally</span></label>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                  <label>Current Hiring Roles</label>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="Software Engineer"><span>Software Engineer</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles" value="AI Engineer"><span>AI
+                        Engineer</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="Data Analyst"><span>Data Analyst</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="Data Scientist"><span>Data Scientist</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="Full Stack Developer"><span>Full Stack Dev.</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="Cloud Engineer"><span>Cloud Engineer</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="DevOps Engineer"><span>DevOps Engineer</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="Business Analyst"><span>Business Analyst</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="hiring-roles"
+                        value="Internships"><span>Internships</span></label>
+                    <label class="checkbox-item"><input type="checkbox" id="roles-other"
+                        value="Other"><span>Other</span></label>
+                  </div>
+                  <input type="text" id="roles-other-val" class="form-control" placeholder="Specify other roles..."
+                    style="margin-top: 10px; display: none;">
+                  <script>
+                    document.getElementById('roles-other').addEventListener('change', function () {
+                      document.getElementById('roles-other-val').style.display = this.checked ? 'block' : 'none';
+                    });
+                  </script>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                  <label for="hr-salary-range">Expected Salary Range for Freshers (LPA)</label>
+                  <select id="hr-salary-range" class="form-control">
+                    <option value="Less than 3 LPA">Less than 3 LPA</option>
+                    <option value="3-5 LPA" selected>3-5 LPA</option>
+                    <option value="5-8 LPA">5-8 LPA</option>
+                    <option value="8-12 LPA">8-12 LPA</option>
+                    <option value="Above 12 LPA">Above 12 LPA</option>
+                  </select>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                  <label for="hr-hiring-plans">Hiring Plans for Next Year</label>
+                  <textarea id="hr-hiring-plans" class="form-control"
+                    placeholder="e.g. Expected recruitment timelines and intakes..."></textarea>
+                </div>
+              </div>
+
+              <!-- STEP 5: CURRICULUM FEEDBACK -->
+              <div class="form-step-content" id="step-5">
+                <div class="step-header">
+                  <h3>Section 5: Curriculum Design Recommendations</h3>
+                  <p>Your inputs will help us adapt our syllabus to match core industry frameworks.</p>
+                </div>
+                <div class="form-group">
+                  <label for="hr-teach-more">What topics should colleges teach more?</label>
+                  <textarea id="hr-teach-more" class="form-control"
+                    placeholder="Specify technologies, architectures, or soft skills..."></textarea>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                  <label for="hr-practical-missing">What practical exposure is missing in students?</label>
+                  <textarea id="hr-practical-missing" class="form-control"
+                    placeholder="e.g. Docker deployment, Git collaborative flows, unit testing..."></textarea>
+                </div>
+                <div class="form-group" style="margin-top: 20px;">
+                  <label for="hr-curriculum-suggestions">Suggestions for Curriculum Improvement</label>
+                  <textarea id="hr-curriculum-suggestions" class="form-control"
+                    placeholder="Actionable modifications for academic committees..."></textarea>
+                </div>
+              </div>
+
+              <!-- STEP 6: FINAL SUGGESTIONS & COLLABORATIONS -->
+              <div class="form-step-content" id="step-6">
+                <div class="step-header">
+                  <h3>Section 6: Final Comments & Collaboration</h3>
+                  <p>Indicate partnership routes to engage with our students and faculty.</p>
+                </div>
+
+                <div class="form-group">
+                  <label>Would you like future collaboration with our institution? <span
+                      class="required">*</span></label>
+                  <div class="radio-group">
+                    <label class="radio-item"><input type="radio" name="collab-interest"
+                        value="Yes"><span>Yes</span></label>
+                    <label class="radio-item"><input type="radio" name="collab-interest"
+                        value="No"><span>No</span></label>
+                    <label class="radio-item"><input type="radio" name="collab-interest"
+                        value="Maybe"><span>Maybe</span></label>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                  <label>Interested In (Select all that apply)</label>
+                  <div class="checkbox-grid">
+                    <label class="checkbox-item"><input type="checkbox" name="collab-topics"
+                        value="Guest Lectures"><span>Guest Lectures</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="collab-topics"
+                        value="Internships"><span>Internships</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="collab-topics"
+                        value="Industrial Visits"><span>Industrial Visits</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="collab-topics"
+                        value="Campus Recruitment"><span>Campus Recruit</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="collab-topics"
+                        value="Research Collaboration"><span>Research Collab</span></label>
+                    <label class="checkbox-item"><input type="checkbox" name="collab-topics"
+                        value="Hackathons"><span>Hackathons</span></label>
+                  </div>
+                </div>
+
+                <div class="form-group" style="margin-top: 20px;">
+                  <label for="hr-general-suggestions">General Suggestions</label>
+                  <textarea id="hr-general-suggestions" class="form-control" style="min-height: 120px;"
+                    placeholder="Additional suggestions or feedback for the organization team..."></textarea>
+                </div>
+              </div>
+
+              <!-- Wizard Controls -->
+              <div class="wizard-footer">
+                <button type="button" class="btn btn-secondary" id="form-prev-btn">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5L8.25 12l7.5-7.5" />
+                  </svg>
+                  Previous
+                </button>
+                <div style="flex-grow: 1;"></div>
+                <button type="button" class="btn btn-primary" id="form-next-btn">
+                  Next
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                  </svg>
+                </button>
+                <button type="button" class="btn btn-primary btn-accent" id="form-submit-btn" style="display: none;">
+                  Submit Feedback
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+                  </svg>
+                </button>
+              </div>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 3. THANK YOU PAGE & CERTIFICATE -->
+    <section id="thank-you-view" class="view-panel">
+      <div class="container thank-you-container">
+        <div class="success-badge">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round"
+              d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+          </svg>
+        </div>
+        <h2 class="thank-you-title">Feedback Submitted Successfully!</h2>
+        <p class="thank-you-subtitle">Thank you for contributing valuable industry insights that will help shape
+          future-ready graduates.</p>
+
+        <div style="display:flex; gap:16px; justify-content: center; margin-top: 32px;">
+          <a href="#" class="btn btn-primary" data-nav="landing">Go to Homepage</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- 4. ADMIN LOGIN VIEW -->
+    <section id="login-view" class="view-panel">
+      <div class="login-container">
+        <div class="login-card glass-card">
+          <div class="login-header">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
+            </svg>
+            <h3>Admin Login</h3>
+            <p>Access the placement analytics dashboard.</p>
+          </div>
+          <div class="error-message" id="login-error"></div>
+          <form id="admin-login-form">
+            <div class="form-group" style="margin-bottom:16px;">
+              <label for="login-username">Username</label>
+              <input type="text" id="login-username" class="form-control" placeholder="e.g. admin" required>
+            </div>
+            <div class="form-group" style="margin-bottom:24px;">
+              <label for="login-password">Password</label>
+              <input type="password" id="login-password" class="form-control" placeholder="e.g. admin123" required>
+            </div>
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Secure Login</button>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <!-- 5. ADMIN LAYOUT VIEW (DASHBOARD) -->
+    <section id="admin-view" class="view-panel">
+      <div class="admin-layout">
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar">
+          <div class="sidebar-logo">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                d="M3.75 3v11.25A2.25 2.25 0 006 16.5h2.25M3.75 3h-1.5m1.5 0h16.5m0 0h1.5m-1.5 0v11.25A2.25 2.25 0 0118 16.5h-2.25m-7.5 0h7.5m-7.5 0-1 3m8.5-3 1 3m0 0h.5m-.5 0h-9.5m0 0h-.5" />
+            </svg>
+            <span>Insight Dashboard</span>
+          </div>
+          <nav class="sidebar-menu">
+            <div class="sidebar-item active" data-tab="dashboard">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M7.5 14.25v2.25m3-4.5v4.5m3-6.75v6.75m3-9v9M6 20.25h12A2.25 2.25 0 0020.25 18V6A2.25 2.25 0 0018 3.75H6A2.25 2.25 0 003.75 6v12A2.25 2.25 0 006 20.25z" />
+              </svg>
+              Dashboard Overview
+            </div>
+            <div class="sidebar-item" data-tab="records">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+              </svg>
+              Feedback Records
+            </div>
+            <div class="sidebar-item" data-tab="directory">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M8.25 6.75h12M8.25 12h12m-12 5.25h12M3.75 6.75h.007v.008H3.75V6.75zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zM3.75 12h.007v.008H3.75V12zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0zm-.375 5.25h.007v.008H3.75v-.008zm.375 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+              </svg>
+              HR Directory
+            </div>
+            <div class="sidebar-item" data-tab="analytics">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M10.5 6a7.5 7.5 0 107.5 7.5h-7.5V6z" />
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M13.5 10.5H21A7.5 7.5 0 0013.5 3v7.5z" />
+              </svg>
+              Analytics Charts
+            </div>
+            <div class="sidebar-item" data-tab="ai-insights">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.813 15.904L9 21l8.932-8.932m0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+              </svg>
+              AI Insights
+            </div>
+            <div class="sidebar-item" data-tab="reports">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+              </svg>
+              Reports & Downloads
+            </div>
+            <div class="sidebar-item" data-tab="settings">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="M9.594 3.94c.09-.542.56-.94 1.11-.94h2.593c.55 0 1.02.398 1.11.94l.213 1.281c.063.374.313.686.645.87.074.04.147.083.22.127.324.196.72.257 1.075.124l1.217-.456a1.125 1.125 0 011.37.49l1.296 2.247a1.125 1.125 0 01-.26 1.43l-1.003.828c-.293.241-.438.613-.43.992a7.723 7.723 0 010 .255c-.008.378.137.75.43.991l1.004.827c.424.35.534.954.26 1.43l-1.298 2.247a1.125 1.125 0 01-1.369.491l-1.217-.456c-.355-.133-.75-.072-1.076.124a6.57 6.57 0 01-.22.128c-.331.183-.581.495-.644.869l-.213 1.28c-.09.543-.56.94-1.11.94h-2.594c-.55 0-1.02-.398-1.11-.94l-.213-1.281c-.062-.374-.312-.686-.644-.87a6.52 6.52 0 01-.22-.127c-.325-.196-.72-.257-1.076-.124l-1.217.456a1.125 1.125 0 01-1.369-.49l-1.297-2.247a1.125 1.125 0 01.26-1.43l1.004-.827c.292-.24.437-.613.43-.992a6.932 6.932 0 010-.255c.007-.378-.138-.75-.43-.991l-1.004-.827a1.125 1.125 0 01-.26-1.43l1.297-2.247a1.125 1.125 0 011.37-.491l1.216.456c.356.133.751.072 1.076-.124.072-.044.146-.087.22-.128.332-.183.582-.495.644-.869l.214-1.28z" />
+                <circle cx="12" cy="12" r="3" />
+              </svg>
+              Settings & QR
+            </div>
+            <div class="sidebar-footer">
+              <div class="sidebar-item" data-tab="logout" style="color: var(--danger);">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M15.75 9V5.25A2.25 2.25 0 0013.5 3h-6a2.25 2.25 0 00-2.25 2.25v13.5A2.25 2.25 0 007.5 21h6a2.25 2.25 0 002.25-2.25V15M12 9l-3 3m0 0l3 3m-3-3h12.75" />
+                </svg>
+                Sign Out
+              </div>
+            </div>
+          </nav>
+        </aside>
+
+        <!-- Main Dashboard content section -->
+        <main class="admin-content">
+
+          <!-- SUB-VIEW 1: OVERVIEW DASHBOARD -->
+          <div id="admin-dashboard" class="admin-sub-view active">
+            <div class="page-header">
+              <div class="page-header-info">
+                <h2>Dashboard Overview</h2>
+                <p>Welcome back! Here are the core statistics for the Annual HR Summit.</p>
+              </div>
+            </div>
+
+            <!-- KPI overview grid -->
+            <div class="kpi-grid">
+              <div class="kpi-card kpi-primary glass-card">
+                <div class="kpi-header">
+                  <span class="kpi-title">Total Responses</span>
+                  <div class="kpi-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M18 18.72a9.094 9.094 0 003.741-.479 3 3 0 00-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m12 0a5.97 5.97 0 00-.75-2.906m-.75 2.906a5.97 5.97 0 01-.75-2.906m0 0a5.97 5.97 0 01-.75 2.906m0 0a5.97 5.97 0 00-.75-2.906m0 0A6 6 0 006 18.72M3 18.72a9.094 9.094 0 013.741-.479 3 3 0 01-4.682-2.72m.94 3.198l.001.031c0 .225-.012.447-.037.666A11.944 11.944 0 0112 21c-2.17 0-4.207-.576-5.963-1.584A6.062 6.062 0 016 18.719m0 0a5.97 5.97 0 01-.75-2.906m0 0A5.97 5.97 0 004.5 15.75c-1.39 0-2.617.472-3.585 1.258A6.062 6.062 0 000 18.719M12 11.25a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zm0 0a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5zm0 0a3.75 3.75 0 100-7.5 3.75 3.75 0 000 7.5z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="kpi-value" id="kpi-responses">0</div>
+                <div class="kpi-desc">Total feedback entries submitted</div>
+              </div>
+
+              <div class="kpi-card kpi-accent glass-card">
+                <div class="kpi-header">
+                  <span class="kpi-title">Average Rating</span>
+                  <div class="kpi-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M11.48 3.499c.15-.31.605-.31.755 0l2.167 4.39 4.82 1.018c.34.072.476.488.23.727l-3.327 3.244.896 4.757c.063.332-.288.586-.583.425L12 15.656l-4.14 2.183c-.295.156-.64-.098-.583-.425l.896-4.757-3.327-3.244c-.246-.239-.11-.655.23-.727l4.82-1.018 2.167-4.39z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="kpi-value"><span id="kpi-rating">0.0</span> <span
+                    style="font-size:1.1rem; color:var(--text-muted);">/ 5.0</span></div>
+                <div class="kpi-desc">Mean rating for event organization</div>
+              </div>
+
+              <div class="kpi-card kpi-success glass-card">
+                <div class="kpi-header">
+                  <span class="kpi-title">Companies Participated</span>
+                  <div class="kpi-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M12 21v-8.25M15.75 21v-8.25M8.25 21v-8.25M3 9l9-6 9 6m-1.5 12V10.332A48.36 48.36 0 0012 9.75c-2.68 0-5.302.136-7.88.4L2.625 21h18.75z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="kpi-value" id="kpi-companies">0</div>
+                <div class="kpi-desc">Unique corporate entities logged</div>
+              </div>
+
+              <div class="kpi-card kpi-primary glass-card">
+                <div class="kpi-header">
+                  <span class="kpi-title">Internships Offered</span>
+                  <div class="kpi-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M4.26 10.147a60.436 60.436 0 00-.491 6.347A48.62 48.62 0 0112 20.904a48.62 48.62 0 018.232-4.41 60.46 60.46 0 00-.491-6.347m-16.482 0a48.304 48.304 0 0116.482 0m-16.482 0L9 14.07m11.318-3.923L15 14.07M9 14.07a48.665 48.665 0 016 0m-6 0l-.324 3.564a48.624 48.624 0 015.648 0L15 14.07M12 3v3.75m0 0l-3-3m3 3l3-3" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="kpi-value" id="kpi-internships">0</div>
+                <div class="kpi-desc">Companies offering internship openings</div>
+              </div>
+
+              <div class="kpi-card kpi-success glass-card">
+                <div class="kpi-header">
+                  <span class="kpi-title">Hiring Freshers</span>
+                  <div class="kpi-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="kpi-value" id="kpi-hiring">0</div>
+                <div class="kpi-desc">Companies actively recruiting graduates</div>
+              </div>
+
+              <div class="kpi-card kpi-accent glass-card">
+                <div class="kpi-header">
+                  <span class="kpi-title">Collab Interests</span>
+                  <div class="kpi-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M19 7.5v3m0 0v3m0-3h3m-3 0h-3m-2.25-4.125a3.375 3.375 0 11-6.75 0 3.375 3.375 0 016.75 0zM4 19.235v-.11a6.375 6.375 0 0112.75 0v.109A12.318 12.318 0 0110.374 21c-2.331 0-4.512-.645-6.374-1.766z" />
+                    </svg>
+                  </div>
+                </div>
+                <div class="kpi-value" id="kpi-collab">0</div>
+                <div class="kpi-desc">Firms willing to partner on lectures/visits</div>
+              </div>
+            </div>
+
+            <!-- Double Column Layout -->
+            <div class="dashboard-grid-split">
+              <!-- Left: Brief Introduction Card -->
+              <div class="glass-card" style="padding: 24px;">
+                <h3 style="font-weight:800; margin-bottom:12px;">Summit Insights Summary</h3>
+                <p style="color:var(--text-muted); line-height:1.6; font-size: 0.95rem; margin-bottom: 16px;">This
+                  portal compiles analytical models directly from feedback forms provided to HR delegates during the
+                  summit. Switch tabs in the left sidebar to view directories, compile Excel exports, check Chart.js
+                  expectations, or run automated AI summaries.</p>
+                <div style="border-top:1px solid var(--border-color); padding-top:16px; display:flex; gap:16px;">
+                  <button class="btn btn-primary" onclick="AppStore.switchAdminTab('directory')">View Directory
+                    Table</button>
+                  <button class="btn btn-secondary" onclick="AppStore.switchAdminTab('analytics')">View Charts &
+                    Analytics</button>
+                </div>
+              </div>
+
+              <!-- Right: Recent Submissions -->
+              <div class="glass-card" style="padding: 24px;">
+                <h3 style="font-weight:800; margin-bottom:12px;">Recent Submissions</h3>
+                <div class="recent-list" id="dash-recent-list">
+                  <!-- Injected by app.js -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 2: DETAILED RECORDS -->
+          <div id="admin-records" class="admin-sub-view">
+            <div class="page-header">
+              <div class="page-header-info">
+                <h2>Feedback Records</h2>
+                <p>Browse full form inputs, comments, and curriculum suggestions.</p>
+              </div>
+            </div>
+            <div class="records-deck" id="records-deck">
+              <!-- Injected by app.js -->
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 3: HR DIRECTORY -->
+          <div id="admin-directory" class="admin-sub-view">
+            <div class="page-header">
+              <div class="page-header-info">
+                <h2>HR Directory</h2>
+                <p>Searchable contact logs and hiring matrices.</p>
+              </div>
+              <div class="header-actions-row">
+                <button class="btn btn-primary" id="dir-dl-excel" onclick="exportToExcel()">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
+                    stroke="currentColor" stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3" />
+                  </svg>
+                  Export to Excel
+                </button>
+              </div>
+            </div>
+
+            <!-- Table Filters and Search -->
+            <div class="table-controls glass-card" style="padding: 16px;">
+              <div class="search-wrapper">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                </svg>
+                <input type="text" id="dir-search" class="search-input" placeholder="Search by name, company, email...">
+              </div>
+              <div class="filters-wrapper">
+                <select id="dir-filter-domain" class="filter-select">
+                  <option value="">All Domains</option>
+                  <option value="Technology">Technology</option>
+                  <option value="Finance">Finance</option>
+                  <option value="Consulting">Consulting</option>
+                  <option value="Healthcare">Healthcare</option>
+                  <option value="E-commerce">E-commerce</option>
+                  <option value="Manufacturing">Manufacturing</option>
+                  <option value="EdTech">EdTech</option>
+                </select>
+                <select id="dir-filter-hiring" class="filter-select">
+                  <option value="">All Hiring</option>
+                  <option value="Yes">Yes</option>
+                  <option value="Occasionally">Occasionally</option>
+                  <option value="No">No</option>
+                </select>
+                <select id="dir-filter-salary" class="filter-select">
+                  <option value="">All Salaries</option>
+                  <option value="Less than 3 LPA">Less than 3 LPA</option>
+                  <option value="3-5 LPA">3-5 LPA</option>
+                  <option value="5-8 LPA">5-8 LPA</option>
+                  <option value="8-12 LPA">8-12 LPA</option>
+                  <option value="Above 12 LPA">Above 12 LPA</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Responsive Table -->
+            <div class="table-responsive">
+              <table class="directory-table">
+                <thead>
+                  <tr>
+                    <th>Full Name</th>
+                    <th>Company / Domain</th>
+                    <th>Designation</th>
+                    <th>Contacts</th>
+                    <th>City</th>
+                    <th>LinkedIn</th>
+                    <th>Hires Freshers</th>
+                  </tr>
+                </thead>
+                <tbody id="directory-table-body">
+                  <!-- Injected by app.js -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Table pagination row -->
+            <div class="table-pagination">
+              <div class="pagination-info" id="paginated-count-text">Showing 0 to 0 of 0 records</div>
+              <div class="pagination-nav">
+                <button class="page-btn" id="page-prev-btn" aria-label="Previous Page">«</button>
+                <button class="page-btn" id="page-next-btn" aria-label="Next Page">»</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 4: ANALYTICS CHARTS -->
+          <div id="admin-analytics" class="admin-sub-view">
+            <div class="page-header">
+              <div class="page-header-info">
+                <h2>Analytics Charts</h2>
+                <p>Visual statistics generated in real-time from HR feedback sheets.</p>
+              </div>
+            </div>
+
+            <div class="charts-grid">
+              <!-- Event Ratings -->
+              <div class="chart-card glass-card">
+                <div class="chart-card-header">
+                  <span class="chart-card-title">Average Event Ratings (out of 5)</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-event-ratings"></canvas>
+                </div>
+              </div>
+
+              <!-- Demanded Skills -->
+              <div class="chart-card glass-card">
+                <div class="chart-card-header">
+                  <span class="chart-card-title">Top 10 Demanded Skills & Technologies</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-demanded-skills"></canvas>
+                </div>
+              </div>
+
+              <!-- Hiring Interest -->
+              <div class="chart-card glass-card">
+                <div class="chart-card-header">
+                  <span class="chart-card-title">Hiring Interest for Freshers</span>
+                </div>
+                <div class="chart-canvas-wrapper-pie">
+                  <canvas id="chart-hiring-interest"></canvas>
+                </div>
+              </div>
+
+              <!-- Salary Brackets -->
+              <div class="chart-card glass-card">
+                <div class="chart-card-header">
+                  <span class="chart-card-title">Expected Fresher Salary Range</span>
+                </div>
+                <div class="chart-canvas-wrapper">
+                  <canvas id="chart-salary-expectations"></canvas>
+                </div>
+              </div>
+
+              <!-- Collaboration interests -->
+              <div class="chart-card glass-card">
+                <div class="chart-card-header">
+                  <span class="chart-card-title">Institutional Collaboration Opportunities</span>
+                </div>
+                <div class="chart-canvas-wrapper-pie">
+                  <canvas id="chart-collab-interests"></canvas>
+                </div>
+              </div>
+
+              <!-- Gaps cloud -->
+              <div class="chart-card glass-card">
+                <div class="chart-card-header">
+                  <span class="chart-card-title">Fresh Graduate Skill Gaps Word Cloud</span>
+                </div>
+                <div class="word-cloud-container" id="word-cloud-words">
+                  <!-- Generated by app.js -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 5: AI INSIGHTS -->
+          <div id="admin-ai-insights" class="admin-sub-view">
+            <div class="page-header">
+              <div class="page-header-info">
+                <h2>AI Insights Module</h2>
+                <p>Automated thematic analysis compiling core skill requirements and academic recommendations.</p>
+              </div>
+            </div>
+
+            <div class="ai-dashboard" id="ai-insights-dashboard">
+              <!-- Summary Card -->
+              <div class="ai-card glass-card" style="grid-column: span 2;">
+                <div class="ai-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9.813 15.904L9 21l8.932-8.932m0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+                  </svg>
+                  Executive Summary
+                </div>
+                <div class="ai-summary-text" id="ai-exec-summary">
+                  <!-- Compiled dynamically -->
+                </div>
+              </div>
+
+              <!-- Gaps themes -->
+              <div class="ai-card ai-accent glass-card">
+                <div class="ai-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  Identified Skill Gaps
+                </div>
+                <div class="ai-bullets-list" id="ai-skill-gap-list">
+                  <!-- Compiled dynamically -->
+                </div>
+              </div>
+
+              <!-- Curriculum recommendations -->
+              <div class="ai-card ai-success glass-card">
+                <div class="ai-card-title">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M9 12.75L11.25 15 15 9.75M21 12c0 1.268-.63 2.39-1.593 3.068a3.745 3.745 0 01-1.043 3.296 3.745 3.745 0 01-3.296 1.043A3.745 3.745 0 0112 21c-1.268 0-2.39-.63-3.068-1.593a3.746 3.746 0 01-3.296-1.043 3.745 3.745 0 01-1.043-3.296A3.745 3.745 0 013 12c0-1.268.63-2.39 1.593-3.068a3.745 3.745 0 011.043-3.296 3.746 3.746 0 013.296-1.043A3.746 3.746 0 0112 3c1.268 0 2.39.63 3.068 1.593a3.746 3.746 0 013.296 1.043 3.746 3.746 0 011.043 3.296A3.745 3.745 0 0121 12z" />
+                  </svg>
+                  Curriculum Recommendations
+                </div>
+                <div class="ai-bullets-list" id="ai-curriculum-list">
+                  <!-- Compiled dynamically -->
+                </div>
+              </div>
+
+              <!-- Circular Placement Readiness Gauge -->
+              <div class="ai-card glass-card readiness-score-box" style="grid-column: span 2;">
+                <h4 style="font-weight: 800; margin-bottom: 20px;">Institution Placement Readiness Score</h4>
+                <div class="circular-gauge">
+                  <svg class="gauge-svg" viewBox="0 0 140 140">
+                    <circle class="gauge-bg" cx="70" cy="70" r="60"></circle>
+                    <circle class="gauge-fill" cx="70" cy="70" r="60"></circle>
+                  </svg>
+                  <div class="gauge-text" id="ai-readiness-score-val">0</div>
+                </div>
+                <div style="font-weight: 800; font-size: 1.15rem; margin-bottom: 4px;" id="ai-readiness-interpretation">
+                  -</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);" id="ai-readiness-interpretation-desc">-</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 6: REPORTS -->
+          <div id="admin-reports" class="admin-sub-view">
+            <div class="page-header">
+              <div class="page-header-info">
+                <h2>Reports Section</h2>
+                <p>Generate downloadable executive summaries, spreadsheets, and registries.</p>
+              </div>
+            </div>
+
+            <div class="reports-layout">
+              <!-- Excel Card -->
+              <div class="report-item-card glass-card">
+                <div class="report-icon-box" style="color:var(--success); background:rgba(16,185,129,0.08);">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m0 12.75h7.5m-7.5 3H12M10.5 2.25H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                </div>
+                <div class="report-info">
+                  <h4>HR Feedback Directory (.xlsx)</h4>
+                  <p>A flat, sorted list of all feedback columns, contact emails, designations, and ratings suitable for
+                    spreadsheet modeling.</p>
+                </div>
+                <button class="btn btn-primary" id="report-dl-excel" style="margin-top:auto;">Download
+                  Spreadsheet</button>
+              </div>
+
+              <!-- PDF Card -->
+              <div class="report-item-card glass-card">
+                <div class="report-icon-box" style="color:var(--danger); background:rgba(239,68,68,0.08);">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m2.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                </div>
+                <div class="report-info">
+                  <h4>Summit Registry Log (.pdf)</h4>
+                  <p>Prints a structured compilation containing the HR directories suitable for presentation archives.
+                  </p>
+                </div>
+                <button class="btn btn-primary" id="report-dl-pdf" style="margin-top:auto;">Print Registry
+                  Document</button>
+              </div>
+
+              <!-- PDF Summary Card -->
+              <div class="report-item-card glass-card">
+                <div class="report-icon-box">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M19.5 14.25v-2.625a3.375 3.375 0 00-3.375-3.375h-1.5A1.125 1.125 0 0113.5 7.125v-1.5a3.375 3.375 0 00-3.375-3.375H8.25m5.25 0H5.625c-.621 0-1.125.504-1.125 1.125v17.25c0 .621.504 1.125 1.125 1.125h12.75c.621 0 1.125-.504 1.125-1.125V11.25a9 9 0 00-9-9z" />
+                  </svg>
+                </div>
+                <div class="report-info">
+                  <h4>Summit Overview Summary</h4>
+                  <p>Prepares a summary containing the KPI matrices, executive summaries, and curriculum suggestions.
+                  </p>
+                </div>
+                <button class="btn btn-primary" id="report-dl-summary" style="margin-top:auto;">Print Summary
+                  PDF</button>
+              </div>
+            </div>
+          </div>
+
+          <!-- SUB-VIEW 7: SETTINGS & QR CODE -->
+          <div id="admin-settings" class="admin-sub-view">
+            <div class="page-header">
+              <div class="page-header-info">
+                <h2>Settings & QR Code Module</h2>
+                <p>Manage system databases, generated QR access keys, and initial backups.</p>
+              </div>
+            </div>
+
+            <div class="settings-layout">
+
+              <!-- QR Code Card -->
+              <div class="settings-section-card glass-card">
+                <h4>QR Code Access Module</h4>
+                <p>Print or download the access QR Code. When scanned by HR delegates, it opens the digital feedback
+                  form directly.</p>
+
+                <div class="qr-layout">
+                  <div class="qr-display-box" style="margin:0 auto;">
+                    <div id="qr-canvas-holder">
+                      <!-- Rendered by QRCodeJS or fallback img -->
+                    </div>
+                    <button class="btn btn-secondary" id="btn-download-qr" style="width: 100%;">Download QR PNG</button>
+                  </div>
+
+                  <div class="qr-instructions-card">
+                    <button class="btn btn-primary" id="btn-generate-qr" style="margin-bottom:16px;">Refresh QR
+                      Code</button>
+                    <ul class="step-checklist">
+                      <li class="step-checklist-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Print on conference badges.</span>
+                      </li>
+                      <li class="step-checklist-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>Display on registration desks.</span>
+                      </li>
+                      <li class="step-checklist-item">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
+                            d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <span>No login required for delegates.</span>
+                      </li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Database Backup & Controls -->
+              <div class="settings-section-card glass-card">
+                <h4>Database Management</h4>
+                <p>Maintain data persistence, purge database entries, or import backup JSON sets.</p>
+
+                <div class="settings-row" style="margin-top:20px;">
+                  <div style="border-bottom:1px solid var(--border-color); padding-bottom:16px;">
+                    <div style="font-weight:700; margin-bottom:8px;">Load Initial Mock Data</div>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Populates the database
+                      with 12 professional corporate HR profiles from Infosys, Google, HDFC, Amazon, etc. to demonstrate
+                      analytics.</p>
+                    <button class="btn btn-secondary" id="btn-db-reset">Load Mock Dataset</button>
+                  </div>
+
+                  <div style="border-bottom:1px solid var(--border-color); padding: 16px 0;">
+                    <div style="font-weight:700; margin-bottom:8px;">Export Database Backup (JSON)</div>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Save a JSON file
+                      containing all feedback entries recorded in this session.</p>
+                    <button class="btn btn-primary" id="btn-db-backup">Download JSON Backup</button>
+                  </div>
+
+                  <div style="border-bottom:1px solid var(--border-color); padding: 16px 0;">
+                    <div style="font-weight:700; margin-bottom:8px;">Restore Database Backup</div>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Restore database from a
+                      previously downloaded JSON backup file.</p>
+                    <input type="file" id="file-db-restore" accept=".json" style="font-size:0.85rem;">
+                  </div>
+
+                  <div style="padding-top:16px;">
+                    <div style="font-weight:700; color:var(--danger); margin-bottom:8px;">Purge All Records</div>
+                    <p style="font-size:0.85rem; color:var(--text-muted); margin-bottom:12px;">Delete all entries from
+                      the portal database. This action is irreversible.</p>
+                    <button class="btn btn-secondary" id="btn-db-clear"
+                      style="color:var(--danger); border-color:var(--danger);">Clear Entire Database</button>
+                  </div>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </main>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ==========================================
+       GLOBAL APP FOOTER
+       ========================================== -->
+  <footer class="app-footer">
+    <div class="container">
+      <p class="footer-text"><strong>Training and placement Cell</strong></p>
+      <p class="footer-text" style="font-size: 0.8rem;">Sanjivani University</p>
+      <p class="footer-text" style="font-size: 0.75rem; margin-top:12px;">&copy; <span class="current-year"></span> GIT.
+        All Rights Reserved. Designed as a digital summit solution.</p>
+    </div>
+  </footer>
+
+  <!-- Mock Database Script -->
+  <script src="mockData.js"></script>
+  <!-- Main Application Script -->
+  <script type="module" src="app.js"></script>
+</body>
+
+</html>
