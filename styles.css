@@ -318,15 +318,22 @@ button {
    ========================================== */
 .uni-header {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 16px;
+  margin-bottom: 20px;
   animation: fadeIn var(--transition-normal);
 }
 
-.uni-logo-icon {
-  font-size: 1.6rem;
+.hero-logo-img {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  border-radius: var(--radius-md);
+  background-color: #fff;
+  padding: 6px;
+  box-shadow: var(--shadow-md);
 }
 
 .university-title {

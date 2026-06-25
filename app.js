@@ -1,12 +1,12 @@
 import {
-    db,
-    ref,
-    push,
-    set,
-    get,
-    child
-} 
-from "./firebase.js";
+  db,
+  ref,
+  push,
+  set,
+  get,
+  child
+}
+  from "./firebase.js";
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize Database
   initDatabase();
@@ -145,7 +145,7 @@ const AppStore = {
     }
 
     AppStore.state.currentRoute = route;
-    
+
     // Hide all view panels
     document.querySelectorAll(".view-panel").forEach(panel => {
       panel.classList.remove("active");
@@ -169,43 +169,9 @@ const AppStore = {
   },
 
   setFormStep: (step) => {
-    AppStore.state.formStep = step;
-    
-    // Update progress nodes
-    document.querySelectorAll(".wizard-step-node").forEach((node, idx) => {
-      const nodeStep = idx + 1;
-      node.classList.remove("active", "completed");
-      
-      if (nodeStep === step) {
-        node.classList.add("active");
-      } else if (nodeStep < step) {
-        node.classList.add("completed");
-      }
-    });
-
-    // Update wizard progress bar fill
-    const totalSteps = 6;
-    const progressPercent = ((step - 1) / (totalSteps - 1)) * 100;
-    const progressFill = document.querySelector(".progress-bar-fill");
-    if (progressFill) progressFill.style.width = `${progressPercent}%`;
-
-    // Update active step content panel
-    document.querySelectorAll(".form-step-content").forEach((panel, idx) => {
-      if (idx + 1 === step) {
-        panel.classList.add("active");
-      } else {
-        panel.classList.remove("active");
-      }
-    });
-
-    // Update buttons visibilities
-    const prevBtn = document.getElementById("form-prev-btn");
-    const nextBtn = document.getElementById("form-next-btn");
+    AppStore.state.formStep = 1;
     const submitBtn = document.getElementById("form-submit-btn");
-
-    if (prevBtn) prevBtn.style.display = step === 1 ? "none" : "inline-flex";
-    if (nextBtn) nextBtn.style.display = step === totalSteps ? "none" : "inline-flex";
-    if (submitBtn) submitBtn.style.display = step === totalSteps ? "inline-flex" : "none";
+    if (submitBtn) submitBtn.style.display = "inline-flex";
   },
 
   toggleTheme: () => {
@@ -226,40 +192,40 @@ const AppStore = {
   },
 
   login: (username, password) => {
-    if (username === "admin" && password === "admin123") {
+    if (username === "admin" && password === "admin321") {
       AppStore.state.loggedIn = true;
-      sessionStorage.setItem("hr_portal_admin_session", "true");
-      document.getElementById("login-error").style.display = "none";
-      AppStore.navigate("admin");
-      return true;
-    } else {
-      document.getElementById("login-error").style.display = "block";
-      document.getElementById("login-error").innerText = "Invalid credentials. Please use admin / admin123.";
-      return false;
-    }
-  },
+    sessionStorage.setItem("hr_portal_admin_session", "true");
+    document.getElementById("login-error").style.display = "none";
+    AppStore.navigate("admin");
+    return true;
+  } else {
+    document.getElementById("login-error").style.display = "block";
+    document.getElementById("login-error").innerText = "Invalid credentials. Please use admin / admin123.";
+    return false;
+  }
+},
 
   logout: () => {
     AppStore.state.loggedIn = false;
-    sessionStorage.removeItem("hr_portal_admin_session");
-    AppStore.navigate("landing");
+sessionStorage.removeItem("hr_portal_admin_session");
+AppStore.navigate("landing");
   },
 
-  renderAdminLayout: () => {
-    // Show correct sidebar active item
-    document.querySelectorAll(".sidebar-item").forEach(item => {
-      const tab = item.dataset.tab;
-      if (tab === AppStore.state.adminTab) {
-        item.classList.add("active");
-      } else {
-        item.classList.remove("active");
-      }
-    });
-  },
+renderAdminLayout: () => {
+  // Show correct sidebar active item
+  document.querySelectorAll(".sidebar-item").forEach(item => {
+    const tab = item.dataset.tab;
+    if (tab === AppStore.state.adminTab) {
+      item.classList.add("active");
+    } else {
+      item.classList.remove("active");
+    }
+  });
+},
 
   switchAdminTab: (tab) => {
     AppStore.state.adminTab = tab;
-    
+
     // Update active tab styles in sidebar
     document.querySelectorAll(".sidebar-item").forEach(item => {
       if (item.dataset.tab === tab) {
@@ -344,30 +310,11 @@ function initUiEvents() {
     });
   }
 
-  // Multi-step Form Wizard Nav Buttons
-  const prevBtn = document.getElementById("form-prev-btn");
-  const nextBtn = document.getElementById("form-next-btn");
+  // Form Submission
   const submitBtn = document.getElementById("form-submit-btn");
-
-  if (prevBtn) {
-    prevBtn.addEventListener("click", () => {
-      if (AppStore.state.formStep > 1) {
-        AppStore.setFormStep(AppStore.state.formStep - 1);
-      }
-    });
-  }
-
-  if (nextBtn) {
-    nextBtn.addEventListener("click", () => {
-      if (validateFormStep(AppStore.state.formStep)) {
-        AppStore.setFormStep(AppStore.state.formStep + 1);
-      }
-    });
-  }
-
   if (submitBtn) {
     submitBtn.addEventListener("click", () => {
-      if (validateFormStep(AppStore.state.formStep)) {
+      if (validateForm()) {
         submitFeedbackForm();
       }
     });
@@ -420,83 +367,41 @@ function updateThemeToggleIcons() {
 /* ==========================================
    Form Wizard Step Validation
    ========================================== */
-function validateFormStep(step) {
+function validateForm() {
   clearFormErrors();
   let isValid = true;
 
-  if (step === 1) {
-    // Validate HR personal information
-    const requiredFields = [
-      { id: "hr-name", name: "Full Name" },
-      { id: "hr-designation", name: "Designation" },
-      { id: "hr-company", name: "Company Name" },
-      { id: "hr-domain", name: "Industry Domain" },
-      { id: "hr-email", name: "Email Address" },
-      { id: "hr-mobile", name: "Mobile Number" },
-      { id: "hr-city", name: "City" }
-    ];
+  // Validate Name & Designation
+  const nameEl = document.getElementById("hr-name");
+  if (!nameEl || !nameEl.value.trim()) {
+    showInputError(nameEl, "Full Name is required.");
+    isValid = false;
+  }
 
-    requiredFields.forEach(field => {
-      const el = document.getElementById(field.id);
-      if (!el || !el.value.trim()) {
-        showInputError(el, `${field.name} is required.`);
-        isValid = false;
-      }
-    });
+  const designationEl = document.getElementById("hr-designation");
+  if (!designationEl || !designationEl.value.trim()) {
+    showInputError(designationEl, "Designation is required.");
+    isValid = false;
+  }
 
-    // Check email pattern
-    const emailEl = document.getElementById("hr-email");
-    if (emailEl && emailEl.value.trim()) {
-      const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailPattern.test(emailEl.value.trim())) {
-        showInputError(emailEl, "Please enter a valid email address.");
-        isValid = false;
+  // Validate star ratings (Organization, Hospitality, studentInteraction, technicalSessions)
+  const ratingCategories = ["organization", "hospitality", "studentInteraction", "technicalSessions"];
+  ratingCategories.forEach(cat => {
+    const selected = document.querySelector(`input[name="rate-${cat}"]:checked`);
+    if (!selected) {
+      const container = document.getElementById(`rating-container-${cat}`);
+      if (container) {
+        showRatingError(container, "Please provide a rating score.");
       }
-    }
-
-    // Check phone pattern
-    const phoneEl = document.getElementById("hr-mobile");
-    if (phoneEl && phoneEl.value.trim()) {
-      const phonePattern = /^[0-9+() -]{10,15}$/;
-      if (!phonePattern.test(phoneEl.value.trim())) {
-        showInputError(phoneEl, "Please enter a valid phone number.");
-        isValid = false;
-      }
-    }
-  } else if (step === 2) {
-    // Validate star ratings (Organization, Hospitality, etc. should have ratings check)
-    const ratingCategories = ["organization", "hospitality", "studentInteraction", "technicalSessions", "venueArrangements"];
-    ratingCategories.forEach(cat => {
-      const selected = document.querySelector(`input[name="rate-${cat}"]:checked`);
-      if (!selected) {
-        const container = document.getElementById(`rating-container-${cat}`);
-        if (container) {
-          showRatingError(container, "Please provide a rating score.");
-        }
-        isValid = false;
-      }
-    });
-  } else if (step === 3) {
-    // Expectations - ensure focus skills text area is filled
-    const skillsText = document.getElementById("hr-focus-skills");
-    if (skillsText && !skillsText.value.trim()) {
-      showInputError(skillsText, "Please write down the top skills freshers should focus on.");
       isValid = false;
     }
-  } else if (step === 4) {
-    // Hiring Insights
-    const hiresFreshers = document.querySelector("input[name='hires-freshers']:checked");
-    if (!hiresFreshers) {
-      showRadioError("hires-freshers", "Please select hiring status.");
-      isValid = false;
-    }
-  } else if (step === 6) {
-    // Final Collaboration
-    const collab = document.querySelector("input[name='collab-interest']:checked");
-    if (!collab) {
-      showRadioError("collab-interest", "Please select your collaboration preference.");
-      isValid = false;
-    }
+  });
+
+  // Hires Freshers radio check
+  const hiresFreshers = document.querySelector("input[name='hires-freshers']:checked");
+  if (!hiresFreshers) {
+    showRadioError("hires-freshers", "Please select hiring status.");
+    isValid = false;
   }
 
   // Scroll to first error if any
@@ -513,7 +418,7 @@ function validateFormStep(step) {
 function showInputError(element, message) {
   if (!element) return;
   element.style.borderColor = "var(--danger)";
-  
+
   const errorMsg = document.createElement("div");
   errorMsg.className = "input-error-msg";
   errorMsg.style.color = "var(--danger)";
@@ -521,7 +426,7 @@ function showInputError(element, message) {
   errorMsg.style.fontWeight = "600";
   errorMsg.style.marginTop = "4px";
   errorMsg.innerText = message;
-  
+
   element.parentNode.appendChild(errorMsg);
 }
 
@@ -563,27 +468,29 @@ function clearFormErrors() {
    ========================================== */
 async function submitFeedbackForm() {
   const formElement = document.getElementById("hr-feedback-form");
-  
+
+  const hospitalityVal = parseInt(document.querySelector("input[name='rate-hospitality']:checked").value);
+
   // Section 1: HR Info
   const hrInfo = {
     fullName: document.getElementById("hr-name").value.trim(),
     designation: document.getElementById("hr-designation").value.trim(),
-    companyName: document.getElementById("hr-company").value.trim(),
-    industryDomain: document.getElementById("hr-domain").value,
-    email: document.getElementById("hr-email").value.trim(),
-    mobileNumber: document.getElementById("hr-mobile").value.trim(),
-    linkedinProfile: document.getElementById("hr-linkedin").value.trim() || "Not provided",
-    city: document.getElementById("hr-city").value.trim()
+    companyName: "Not provided",
+    industryDomain: "Other",
+    email: "Not provided",
+    mobileNumber: "Not provided",
+    linkedinProfile: "Not provided",
+    city: "Not provided"
   };
 
   // Section 2: Ratings
   const eventFeedback = {
     organization: parseInt(document.querySelector("input[name='rate-organization']:checked").value),
-    hospitality: parseInt(document.querySelector("input[name='rate-hospitality']:checked").value),
+    hospitality: hospitalityVal,
     studentInteraction: parseInt(document.querySelector("input[name='rate-studentInteraction']:checked").value),
     technicalSessions: parseInt(document.querySelector("input[name='rate-technicalSessions']:checked").value),
-    venueArrangements: parseInt(document.querySelector("input[name='rate-venueArrangements']:checked").value),
-    likedMost: document.getElementById("hr-liked-most").value.trim() || "N/A"
+    venueArrangements: hospitalityVal,
+    likedMost: "N/A"
   };
 
   // Section 3: Skill Expectations
@@ -598,43 +505,29 @@ async function submitFeedbackForm() {
 
   const industryExpectations = {
     demandedSkills: skillsList,
-    topFocusSkills: document.getElementById("hr-focus-skills").value.trim()
+    topFocusSkills: "N/A"
   };
 
   // Section 4: Hiring Insights
-  const rolesList = [];
-  document.querySelectorAll("input[name='hiring-roles']:checked").forEach(chk => {
-    rolesList.push(chk.value);
-  });
-  const customRole = document.getElementById("roles-other-val").value.trim();
-  if (document.getElementById("roles-other").checked && customRole) {
-    rolesList.push(customRole);
-  }
-
   const hiringInsights = {
     hiresFreshers: document.querySelector("input[name='hires-freshers']:checked").value,
-    hiringRoles: rolesList,
-    salaryRange: document.getElementById("hr-salary-range").value,
-    hiringPlansNextYear: document.getElementById("hr-hiring-plans").value.trim() || "N/A"
+    hiringRoles: [],
+    salaryRange: "3-5 LPA",
+    hiringPlansNextYear: "N/A"
   };
 
   // Section 5: Curriculum
   const curriculumFeedback = {
-    topicsToTeachMore: document.getElementById("hr-teach-more").value.trim() || "N/A",
-    practicalExposureMissing: document.getElementById("hr-practical-missing").value.trim() || "N/A",
+    topicsToTeachMore: "N/A",
+    practicalExposureMissing: "N/A",
     curriculumImprovementSuggestions: document.getElementById("hr-curriculum-suggestions").value.trim() || "N/A"
   };
 
   // Section 6: Suggestions & Collab
-  const collabInterestList = [];
-  document.querySelectorAll("input[name='collab-topics']:checked").forEach(chk => {
-    collabInterestList.push(chk.value);
-  });
-
   const finalSuggestions = {
-    generalSuggestions: document.getElementById("hr-general-suggestions").value.trim() || "N/A",
-    futureCollaboration: document.querySelector("input[name='collab-interest']:checked").value,
-    collaborationInterests: collabInterestList
+    generalSuggestions: "N/A",
+    futureCollaboration: "Maybe",
+    collaborationInterests: []
   };
 
   // Assemble into feedback object
@@ -650,7 +543,7 @@ async function submitFeedbackForm() {
   };
 
   // Save to DB
- await Database.add(newSubmission);
+  await Database.add(newSubmission);
 
   // Clear form elements
   formElement.reset();
@@ -669,55 +562,44 @@ async function submitFeedbackForm() {
 const DashboardTab = {
   init: async () => {
     const data = await Database.getAll();
-    
+
     // 1. KPI Cards population
     const totalResponses = data.length;
     let totalScoreSum = 0;
     let ratingCount = 0;
-    const companySet = new Set();
-    let internshipOpportunities = 0;
+    let studentInteractionScoreSum = 0;
+    let studentInteractionCount = 0;
     let hiringCount = 0;
-    let collabInterestCount = 0;
 
     data.forEach(r => {
       // Event Ratings
       const ratings = r.eventFeedback;
       if (ratings) {
-        totalScoreSum += (ratings.organization + ratings.hospitality + ratings.studentInteraction + ratings.technicalSessions + ratings.venueArrangements);
-        ratingCount += 5;
-      }
+        totalScoreSum += (ratings.organization + ratings.hospitality + ratings.studentInteraction + ratings.technicalSessions);
+        ratingCount += 4;
 
-      // Unique Company
-      if (r.hrInfo && r.hrInfo.companyName) {
-        companySet.add(r.hrInfo.companyName.trim().toLowerCase());
+        if (ratings.studentInteraction !== undefined && ratings.studentInteraction !== null) {
+          studentInteractionScoreSum += ratings.studentInteraction;
+          studentInteractionCount++;
+        }
       }
 
       // Hiring status
-      if (r.hiringInsights) {
+      if (r.hiringInsights && r.hiringInsights.hiresFreshers) {
         if (r.hiringInsights.hiresFreshers === "Yes" || r.hiringInsights.hiresFreshers === "Occasionally") {
           hiringCount++;
         }
-        if (r.hiringInsights.hiringRoles && r.hiringInsights.hiringRoles.includes("Internships")) {
-          internshipOpportunities++;
-        }
-      }
-
-      // Collaboration Interest
-      if (r.finalSuggestions && (r.finalSuggestions.futureCollaboration === "Yes" || r.finalSuggestions.futureCollaboration === "Maybe")) {
-        collabInterestCount++;
       }
     });
 
     const avgRating = ratingCount > 0 ? (totalScoreSum / ratingCount).toFixed(1) : "0.0";
-    const totalCompanies = companySet.size;
+    const avgStudentInteraction = studentInteractionCount > 0 ? (studentInteractionScoreSum / studentInteractionCount).toFixed(1) : "0.0";
 
     // Push into DOM
     document.getElementById("kpi-responses").innerText = totalResponses;
     document.getElementById("kpi-rating").innerText = avgRating;
-    document.getElementById("kpi-companies").innerText = totalCompanies;
-    document.getElementById("kpi-internships").innerText = internshipOpportunities;
+    document.getElementById("kpi-student-interaction").innerText = avgStudentInteraction;
     document.getElementById("kpi-hiring").innerText = hiringCount;
-    document.getElementById("kpi-collab").innerText = collabInterestCount;
 
     // Renders mini list of recent responses
     const listBody = document.getElementById("dash-recent-list");
@@ -728,7 +610,7 @@ const DashboardTab = {
       } else {
         // Take top 4 recent
         data.slice(0, 4).forEach(r => {
-          const ratingVal = r.eventFeedback ? ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions + r.eventFeedback.venueArrangements) / 5).toFixed(1) : "N/A";
+          const ratingVal = r.eventFeedback ? ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions) / 4).toFixed(1) : "N/A";
           const rowDiv = document.createElement("div");
           rowDiv.className = "recent-item";
           rowDiv.style.display = "flex";
@@ -736,14 +618,16 @@ const DashboardTab = {
           rowDiv.style.alignItems = "center";
           rowDiv.style.padding = "12px 0";
           rowDiv.style.borderBottom = "1px solid var(--border-color)";
-          
+
           rowDiv.innerHTML = `
             <div>
               <div style="font-weight: 700; font-size: 0.95rem;">${r.hrInfo.fullName}</div>
-              <div style="font-size: 0.8rem; color: var(--text-muted);">${r.hrInfo.designation} at <span style="font-weight: 600;">${r.hrInfo.companyName}</span></div>
+              <div style="font-size: 0.8rem; color: var(--text-muted);">${r.hrInfo.designation}</div>
             </div>
             <div style="text-align: right;">
-              <span class="badge badge-info">${r.hrInfo.industryDomain}</span>
+              <span class="badge ${r.hiringInsights.hiresFreshers === 'Yes' ? 'badge-success' : r.hiringInsights.hiresFreshers === 'Occasionally' ? 'badge-warning' : 'badge-danger'}">
+                Hires: ${r.hiringInsights.hiresFreshers || 'No'}
+              </span>
               <div style="font-size: 0.8rem; color: var(--accent); font-weight: 700; margin-top: 4px;">★ ${ratingVal}</div>
             </div>
           `;
@@ -768,20 +652,18 @@ const RecordsTab = {
     }
 
     data.forEach((r, idx) => {
-      const avgScore = ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions + r.eventFeedback.venueArrangements) / 5).toFixed(1);
+      const avgScore = ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions) / 4).toFixed(1);
       const card = document.createElement("div");
       card.className = "record-card glass-card";
-      
+
       // Skills markup
       const skillsMarkup = r.industryExpectations.demandedSkills.map(s => `<span class="tag-item">${s}</span>`).join("");
-      // Roles markup
-      const rolesMarkup = r.hiringInsights.hiringRoles.length > 0 ? r.hiringInsights.hiringRoles.map(rl => `<span class="tag-item">${rl}</span>`).join("") : `<span class="text-muted" style="font-size: 0.8rem;">None specified</span>`;
 
       card.innerHTML = `
         <div class="record-header">
           <div class="record-meta">
             <h4>${r.hrInfo.fullName} <span style="font-weight: normal; color: var(--text-muted); font-size:0.9rem;">(${r.hrInfo.designation})</span></h4>
-            <p><strong>${r.hrInfo.companyName}</strong> (${r.hrInfo.industryDomain}) • ${r.hrInfo.city}</p>
+            ${r.hrInfo.companyName !== "Not provided" ? `<p><strong>${r.hrInfo.companyName}</strong> (${r.hrInfo.industryDomain}) • ${r.hrInfo.city}</p>` : ""}
             <p style="font-size:0.75rem; margin-top: 4px;">Submitted: ${new Date(r.timestamp).toLocaleString()}</p>
           </div>
           <div style="text-align: right;">
@@ -789,7 +671,7 @@ const RecordsTab = {
               ★ ${avgScore} / 5.0
             </div>
             <div style="font-size: 0.8rem; margin-top: 4px; color: var(--text-muted);">
-              Collab interest: <span class="badge ${r.finalSuggestions.futureCollaboration === 'Yes' ? 'badge-success' : r.finalSuggestions.futureCollaboration === 'Maybe' ? 'badge-warning' : 'badge-danger'}">${r.finalSuggestions.futureCollaboration}</span>
+              Hires freshers: <span class="badge ${r.hiringInsights.hiresFreshers === 'Yes' ? 'badge-success' : r.hiringInsights.hiresFreshers === 'Occasionally' ? 'badge-warning' : 'badge-danger'}">${r.hiringInsights.hiresFreshers || 'No'}</span>
             </div>
           </div>
         </div>
@@ -797,29 +679,21 @@ const RecordsTab = {
           <div class="record-column">
             <h5>Event Feedbacks</h5>
             <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px; color: var(--text-muted);">
-              <div>Org: <strong>${r.eventFeedback.organization}/5</strong></div>
-              <div>Hosp: <strong>${r.eventFeedback.hospitality}/5</strong></div>
-              <div>Student Int: <strong>${r.eventFeedback.studentInteraction}/5</strong></div>
-              <div>Sessions: <strong>${r.eventFeedback.technicalSessions}/5</strong></div>
-              <div>Venue: <strong>${r.eventFeedback.venueArrangements}/5</strong></div>
+              <div>Organization: <strong>${r.eventFeedback.organization}/5</strong></div>
+              <div>Hospitality: <strong>${r.eventFeedback.hospitality}/5</strong></div>
+              <div>Student Interaction: <strong>${r.eventFeedback.studentInteraction}/5</strong></div>
+              <div>Sessions Quality: <strong>${r.eventFeedback.technicalSessions}/5</strong></div>
             </div>
-            <p style="font-size: 0.85rem; margin-top: 8px; font-style: italic;">"Liking: ${r.eventFeedback.likedMost}"</p>
           </div>
           <div class="record-column">
-            <h5>Industry Skills Demand</h5>
-            <div class="tag-list" style="margin-bottom: 8px;">
+            <h5>Expected Core Skills</h5>
+            <div class="tag-list" style="margin-top: 8px;">
               ${skillsMarkup || '<span class="text-muted" style="font-size: 0.8rem;">None selected</span>'}
             </div>
-            <h5>Hiring Roles</h5>
-            <div class="tag-list">
-              ${rolesMarkup}
-            </div>
           </div>
           <div class="record-column">
-            <h5>Key Suggestions</h5>
-            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Practical Gaps:</strong> ${r.curriculumFeedback.practicalExposureMissing}</p>
-            <p style="font-size:0.85rem; margin-bottom:6px;"><strong>Curriculum Needs:</strong> ${r.curriculumFeedback.topicsToTeachMore}</p>
-            <p style="font-size:0.85rem;"><strong>General:</strong> ${r.finalSuggestions.generalSuggestions}</p>
+            <h5>Curriculum Suggestions</h5>
+            <p style="font-size:0.85rem; line-height: 1.4;">${r.curriculumFeedback.curriculumImprovementSuggestions || 'N/A'}</p>
           </div>
         </div>
       `;
@@ -871,7 +745,7 @@ const DirectoryTab = {
     DirectoryTab.renderTable();
   },
 
-  renderTable: async() => {
+  renderTable: async () => {
     const data = await Database.getAll();
     const tableBody = document.getElementById("directory-table-body");
     if (!tableBody) return;
@@ -884,7 +758,7 @@ const DirectoryTab = {
 
     const filteredData = data.filter(r => {
       // Search
-      const searchMatch = !search || 
+      const searchMatch = !search ||
         r.hrInfo.fullName.toLowerCase().includes(search) ||
         r.hrInfo.companyName.toLowerCase().includes(search) ||
         r.hrInfo.designation.toLowerCase().includes(search) ||
@@ -906,12 +780,12 @@ const DirectoryTab = {
     const totalItems = filteredData.length;
     const pageSize = AppStore.state.pagination.pageSize;
     const totalPages = Math.max(1, Math.ceil(totalItems / pageSize));
-    
+
     if (AppStore.state.pagination.currentPage > totalPages) {
       AppStore.state.pagination.currentPage = totalPages;
     }
     const currentPage = AppStore.state.pagination.currentPage;
-    
+
     const startIndex = (currentPage - 1) * pageSize;
     const endIndex = Math.min(startIndex + pageSize, totalItems);
     const paginatedData = filteredData.slice(startIndex, endIndex);
@@ -924,7 +798,7 @@ const DirectoryTab = {
       paginatedData.forEach(r => {
         const row = document.createElement("tr");
         const badgeClass = r.hiringInsights.hiresFreshers === "Yes" ? "badge-success" : r.hiringInsights.hiresFreshers === "Occasionally" ? "badge-warning" : "badge-danger";
-        
+
         row.innerHTML = `
           <td class="hr-name-col">${r.hrInfo.fullName}</td>
           <td class="hr-company-col">
@@ -951,8 +825,8 @@ const DirectoryTab = {
     // Pagination Info and buttons update
     const countText = document.getElementById("paginated-count-text");
     if (countText) {
-      countText.innerText = totalItems > 0 
-        ? `Showing ${startIndex + 1} to ${endIndex} of ${totalItems} records` 
+      countText.innerText = totalItems > 0
+        ? `Showing ${startIndex + 1} to ${endIndex} of ${totalItems} records`
         : `Showing 0 to 0 of 0 records`;
     }
 
@@ -986,531 +860,22 @@ const DirectoryTab = {
   }
 };
 
-/* --- ADMIN TAB 4: VISUAL CHARTS & ANALYTICS --- */
+/* --- ADMIN TAB 4: VISUAL CHARTS & ANALYTICS (DEPRECATED) --- */
 const AnalyticsTab = {
-  charts: {},
-
-  init: () => {
-    AnalyticsTab.renderCharts();
-  },
-
-  renderCharts: async() => {
-    const data = await Database.getAll();
-    if (data.length === 0) return;
-
-    // Common Chart Options
-    const isDark = document.documentElement.classList.contains("dark");
-    const gridColor = isDark ? "#334155" : "#e2e8f0";
-    const labelColor = isDark ? "#94a3b8" : "#64748b";
-    
-    // Destroy existing charts to prevent canvas ghost rendering
-    Object.keys(AnalyticsTab.charts).forEach(key => {
-      if (AnalyticsTab.charts[key]) {
-        AnalyticsTab.charts[key].destroy();
-      }
-    });
-
-    // 1. Chart 1: Average Event Ratings
-    let ratingsSum = { org: 0, hosp: 0, interaction: 0, sessions: 0, venue: 0 };
-    data.forEach(r => {
-      ratingsSum.org += r.eventFeedback.organization;
-      ratingsSum.hosp += r.eventFeedback.hospitality;
-      ratingsSum.interaction += r.eventFeedback.studentInteraction;
-      ratingsSum.sessions += r.eventFeedback.technicalSessions;
-      ratingsSum.venue += r.eventFeedback.venueArrangements;
-    });
-    
-    const count = data.length;
-    const avgRatings = [
-      (ratingsSum.org / count).toFixed(1),
-      (ratingsSum.hosp / count).toFixed(1),
-      (ratingsSum.interaction / count).toFixed(1),
-      (ratingsSum.sessions / count).toFixed(1),
-      (ratingsSum.venue / count).toFixed(1)
-    ];
-
-    const ctxRatings = document.getElementById("chart-event-ratings").getContext("2d");
-    AnalyticsTab.charts.ratings = new Chart(ctxRatings, {
-      type: 'bar',
-      data: {
-        labels: ['Organization', 'Hospitality', 'Student Interaction', 'Technical Sessions', 'Venue arrangements'],
-        datasets: [{
-          label: 'Average Score (out of 5)',
-          data: avgRatings,
-          backgroundColor: 'rgba(37, 99, 235, 0.7)',
-          borderColor: '#2563eb',
-          borderWidth: 2,
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: {
-            min: 0,
-            max: 5,
-            grid: { color: gridColor },
-            ticks: { color: labelColor }
-          },
-          x: {
-            grid: { display: false },
-            ticks: { color: labelColor }
-          }
-        }
-      }
-    });
-
-    // 2. Chart 2: Most Demanded Skills
-    const skillCounts = {};
-    data.forEach(r => {
-      r.industryExpectations.demandedSkills.forEach(skill => {
-        skillCounts[skill] = (skillCounts[skill] || 0) + 1;
-      });
-    });
-
-    // Sort skills by demand
-    const sortedSkills = Object.entries(skillCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 10); // top 10
-
-    const ctxSkills = document.getElementById("chart-demanded-skills").getContext("2d");
-    AnalyticsTab.charts.skills = new Chart(ctxSkills, {
-      type: 'bar',
-      data: {
-        labels: sortedSkills.map(s => s[0]),
-        datasets: [{
-          label: 'HR Vote Count',
-          data: sortedSkills.map(s => s[1]),
-          backgroundColor: 'rgba(245, 158, 11, 0.75)',
-          borderColor: '#f59e0b',
-          borderWidth: 2,
-          borderRadius: 6
-        }]
-      },
-      options: {
-        indexAxis: 'y', // Horizontal bars
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          x: {
-            grid: { color: gridColor },
-            ticks: { color: labelColor, stepSize: 1 }
-          },
-          y: {
-            grid: { display: false },
-            ticks: { color: labelColor }
-          }
-        }
-      }
-    });
-
-    // 3. Chart 3: Hiring Interest
-    const hiringStats = { Yes: 0, Occasionally: 0, No: 0 };
-    data.forEach(r => {
-      const hires = r.hiringInsights.hiresFreshers;
-      if (hiringStats[hires] !== undefined) {
-        hiringStats[hires]++;
-      }
-    });
-
-    const ctxHiring = document.getElementById("chart-hiring-interest").getContext("2d");
-    AnalyticsTab.charts.hiring = new Chart(ctxHiring, {
-      type: 'doughnut',
-      data: {
-        labels: ['Yes', 'Occasionally', 'No'],
-        datasets: [{
-          data: [hiringStats.Yes, hiringStats.Occasionally, hiringStats.No],
-          backgroundColor: ['#10b981', '#f59e0b', '#ef4444'],
-          borderWidth: 1
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { color: labelColor }
-          }
-        }
-      }
-    });
-
-    // 4. Chart 4: Salary Expectations
-    const salaryCounts = {
-      'Less than 3 LPA': 0,
-      '3-5 LPA': 0,
-      '5-8 LPA': 0,
-      '8-12 LPA': 0,
-      'Above 12 LPA': 0
-    };
-    data.forEach(r => {
-      const sal = r.hiringInsights.salaryRange;
-      if (salaryCounts[sal] !== undefined) {
-        salaryCounts[sal]++;
-      }
-    });
-
-    const ctxSalary = document.getElementById("chart-salary-expectations").getContext("2d");
-    AnalyticsTab.charts.salary = new Chart(ctxSalary, {
-      type: 'bar',
-      data: {
-        labels: Object.keys(salaryCounts),
-        datasets: [{
-          label: 'Company Count',
-          data: Object.values(salaryCounts),
-          backgroundColor: 'rgba(16, 185, 129, 0.7)',
-          borderColor: '#10b981',
-          borderWidth: 2,
-          borderRadius: 6
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: { display: false }
-        },
-        scales: {
-          y: {
-            grid: { color: gridColor },
-            ticks: { color: labelColor, stepSize: 1 }
-          },
-          x: {
-            grid: { display: false },
-            ticks: { color: labelColor }
-          }
-        }
-      }
-    });
-
-    // 5. Chart 5: Collaboration Interests
-    const collabCounts = {};
-    data.forEach(r => {
-      if (r.finalSuggestions && r.finalSuggestions.collaborationInterests) {
-        r.finalSuggestions.collaborationInterests.forEach(collab => {
-          collabCounts[collab] = (collabCounts[collab] || 0) + 1;
-        });
-      }
-    });
-
-    const sortedCollabs = Object.entries(collabCounts).sort((a, b) => b[1] - a[1]);
-
-    const ctxCollab = document.getElementById("chart-collab-interests").getContext("2d");
-    AnalyticsTab.charts.collab = new Chart(ctxCollab, {
-      type: 'polarArea',
-      data: {
-        labels: sortedCollabs.map(c => c[0]),
-        datasets: [{
-          data: sortedCollabs.map(c => c[1]),
-          backgroundColor: [
-            'rgba(37, 99, 235, 0.65)',
-            'rgba(16, 185, 129, 0.65)',
-            'rgba(245, 158, 11, 0.65)',
-            'rgba(239, 68, 68, 0.65)',
-            'rgba(139, 92, 246, 0.65)',
-            'rgba(236, 72, 153, 0.65)'
-          ]
-        }]
-      },
-      options: {
-        responsive: true,
-        maintainAspectRatio: false,
-        plugins: {
-          legend: {
-            position: 'bottom',
-            labels: { color: labelColor }
-          }
-        },
-        scales: {
-          r: {
-            grid: { color: gridColor },
-            ticks: { color: labelColor, backdropColor: 'transparent' }
-          }
-        }
-      }
-    });
-
-    // 6. Styled Word Cloud Component Rendering (HTML-based Word Cloud for best alignment)
-    AnalyticsTab.renderWordCloud(data);
-  },
-
-  renderWordCloud: (data) => {
-    const cloudHolder = document.getElementById("word-cloud-words");
-    if (!cloudHolder) return;
-
-    // Process comments to get repeating skill gaps and keywords
-    const keywordCounts = {};
-    const blacklist = ["and", "the", "for", "should", "with", "colleges", "that", "about", "practical", "exposure", "missing", "students", "more", "skills", "topics", "teach", "general", "suggestions", "great", "organized", "excellent"];
-    
-    data.forEach(r => {
-      // Analyze text inputs from curriculum feedback
-      const text = `${r.curriculumFeedback.topicsToTeachMore} ${r.curriculumFeedback.practicalExposureMissing}`.toLowerCase();
-      const words = text.match(/\b[a-zA-Z]{3,}\b/g) || [];
-      words.forEach(w => {
-        if (!blacklist.includes(w)) {
-          keywordCounts[w] = (keywordCounts[w] || 0) + 1;
-        }
-      });
-    });
-
-    const sortedKeywords = Object.entries(keywordCounts)
-      .sort((a, b) => b[1] - a[1])
-      .slice(0, 15); // Top 15 keywords
-
-    cloudHolder.innerHTML = "";
-    if (sortedKeywords.length === 0) {
-      cloudHolder.innerHTML = `<span class="text-muted">Not enough textual suggestions to compile gaps cloud.</span>`;
-      return;
-    }
-
-    // Colors list
-    const colors = ["#1e3a8a", "#2563eb", "#f59e0b", "#10b981", "#8b5cf6", "#ec4899", "#ef4444"];
-
-    sortedKeywords.forEach(([word, count]) => {
-      const span = document.createElement("span");
-      span.className = "cloud-word";
-      span.innerText = word.toUpperCase();
-      
-      // Compute sizing based on count
-      const minSize = 0.85;
-      const maxSize = 2.0;
-      const factor = count > 1 ? count : 1;
-      const fontSize = Math.min(maxSize, minSize + (factor * 0.15));
-      span.style.fontSize = `${fontSize}rem`;
-      
-      // Color
-      const color = colors[Math.floor(Math.random() * colors.length)];
-      span.style.color = color;
-      
-      span.title = `${count} occurrences in suggestions`;
-      cloudHolder.appendChild(span);
-    });
-  }
+  init: () => { },
+  renderCharts: () => { }
 };
 
-/* --- ADMIN TAB 5: AI INSIGHTS GENERATOR MODULE --- */
+/* --- ADMIN TAB 5: AI INSIGHTS GENERATOR MODULE (DEPRECATED) --- */
 const AiInsightsTab = {
-  init: async () => {
-    const data = await Database.getAll();
-    if (data.length === 0) {
-      document.getElementById("ai-insights-dashboard").innerHTML = `<div class="text-muted text-center p-5 glass-card col-span-2">No records recorded. Database is empty.</div>`;
-      return;
-    }
-
-    // 1. Calculate stats and execute summary generator
-    const totalResponses = data.length;
-
-    // Find top industries
-    const industryCounts = {};
-    const skillCounts = {};
-    const collaInterestSet = new Set();
-    let hiresYes = 0;
-    let hiresOcc = 0;
-    let totalCollabCount = 0;
-
-    data.forEach(r => {
-      const ind = r.hrInfo.industryDomain;
-      industryCounts[ind] = (industryCounts[ind] || 0) + 1;
-
-      r.industryExpectations.demandedSkills.forEach(s => {
-        skillCounts[s] = (skillCounts[s] || 0) + 1;
-      });
-
-      if (r.hiringInsights.hiresFreshers === "Yes") hiresYes++;
-      if (r.hiringInsights.hiresFreshers === "Occasionally") hiresOcc++;
-
-      if (r.finalSuggestions.futureCollaboration === "Yes" || r.finalSuggestions.futureCollaboration === "Maybe") {
-        totalCollabCount++;
-      }
-    });
-
-    const topSkillsSorted = Object.entries(skillCounts).sort((a,b) => b[1]-a[1]).slice(0, 5).map(item => item[0]);
-    const topDomainsSorted = Object.entries(industryCounts).sort((a,b) => b[1]-a[1]).slice(0, 3).map(item => item[0]);
-
-    // 2. Executive Summary Generator (Dynamically changes based on data inputs)
-    const execSummaryEl = document.getElementById("ai-exec-summary");
-    if (execSummaryEl) {
-      let hiringOutlookText = "cautious";
-      if (hiresYes / totalResponses > 0.6) {
-        hiringOutlookText = "highly active and positive";
-      } else if ((hiresYes + hiresOcc) / totalResponses > 0.5) {
-        hiringOutlookText = "moderately active with occasional fresher hiring cycles";
-      }
-
-      execSummaryEl.innerHTML = `
-        <p style="margin-bottom:12px;">Based on aggregate feedback from <strong>${totalResponses} HR participants</strong> across domains like <strong>${topDomainsSorted.join(", ")}</strong>, the portal has generated the following analysis:</p>
-        <p style="margin-bottom:12px;">HR professionals emphasized a strong demand for <strong>${topSkillsSorted.join(", ")}</strong>. The hiring outlook is <strong>${hiringOutlookText}</strong>, indicating key alignment points for the curriculum team.</p>
-        <p>A notable percentage (<strong>${((totalCollabCount/totalResponses)*100).toFixed(0)}%</strong>) of corporate delegates expressed firm interest in future collaborations like student internships, campus recruitments, and technical hackathons.</p>
-      `;
-    }
-
-    // 3. Skill Gap Analysis
-    const skillGapList = document.getElementById("ai-skill-gap-list");
-    if (skillGapList) {
-      // Gather missing practical concepts
-      const practicalMissingList = data.map(r => r.curriculumFeedback.practicalExposureMissing).filter(t => t && t !== "N/A" && t.length > 5);
-      const uniqueGaps = [...new Set(practicalMissingList)].slice(0, 3);
-      
-      skillGapList.innerHTML = "";
-      const defaultGaps = [
-        { title: "Production Deployment", desc: "Graduates are familiar with writing algorithms in sandboxed notebooks but lack experience hosting apps, API structures, or using Docker." },
-        { title: "Version Control Workflows", desc: "Collaborative coding issues. Missing Git branching, merge resolution skills, and code review compliance." },
-        { title: "Client Communication & Business Writing", desc: "Bridging technical answers to business expectations and writing polished client emails." }
-      ];
-
-      const displayGaps = uniqueGaps.length >= 2 
-        ? uniqueGaps.map((text, i) => ({ title: `Industry Gap Theme ${i+1}`, desc: text }))
-        : defaultGaps;
-
-      displayGaps.forEach(gap => {
-        const item = document.createElement("div");
-        item.className = "ai-bullet-item";
-        item.innerHTML = `
-          <div class="ai-bullet-icon">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-alert-triangle"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-          </div>
-          <div class="ai-bullet-content">
-            <h5>${gap.title}</h5>
-            <p>${gap.desc}</p>
-          </div>
-        `;
-        skillGapList.appendChild(item);
-      });
-    }
-
-    // 4. Curriculum Recommendations
-    const recommendationsList = document.getElementById("ai-curriculum-list");
-    if (recommendationsList) {
-      const suggestionsTextList = data.map(r => r.curriculumFeedback.curriculumImprovementSuggestions).filter(t => t && t !== "N/A" && t.length > 5);
-      const uniqueSuggs = [...new Set(suggestionsTextList)].slice(0, 3);
-
-      recommendationsList.innerHTML = "";
-      const defaultRecs = [
-        { title: "Incorporate Git & Github Practices", desc: "Introduce Github pull request assignments for 2nd and 3rd-year projects to replicate professional engineering teamwork." },
-        { title: "Mandatory Cloud Architectures Elective", desc: "Deliver hands-on cloud credits (AWS Practitioner or GCP Cloud Engineer) to equip developers for modern remote stacks." },
-        { title: "Agile Project Cycles Case Studies", desc: "Ensure final year capstones follow basic Agile boards, Jira ticket logs, and sprints." }
-      ];
-
-      const displayRecs = uniqueSuggs.length >= 2
-        ? uniqueSuggs.map((text, i) => ({ title: `Action Item ${i+1}`, desc: text }))
-        : defaultRecs;
-
-      displayRecs.forEach(rec => {
-        const item = document.createElement("div");
-        item.className = "ai-bullet-item";
-        item.innerHTML = `
-          <div class="ai-bullet-icon" style="color: var(--success);">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-check-circle"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
-          </div>
-          <div class="ai-bullet-content">
-            <h5>${rec.title}</h5>
-            <p>${rec.desc}</p>
-          </div>
-        `;
-        recommendationsList.appendChild(item);
-      });
-    }
-
-    // 5. Placement Readiness Score Calculation
-    // Score components: 
-    // - Event rating (average out of 5 stars) - weighs 20%
-    // - Hiring Outlook rate (Yes weight 100, Occ 50, No 0) - weighs 40%
-    // - Collaboration interests rate (Yes weight 100, Maybe 50, No 0) - weighs 40%
-    let totalEventRatingSum = 0;
-    let hiringScoreSum = 0;
-    let collabScoreSum = 0;
-
-    data.forEach(r => {
-      const avgRate = (r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions + r.eventFeedback.venueArrangements) / 5;
-      totalEventRatingSum += avgRate;
-
-      const hires = r.hiringInsights.hiresFreshers;
-      hiringScoreSum += (hires === "Yes" ? 100 : hires === "Occasionally" ? 60 : 20);
-
-      const col = r.finalSuggestions.futureCollaboration;
-      collabScoreSum += (col === "Yes" ? 100 : col === "Maybe" ? 50 : 0);
-    });
-
-    const avgEventRating = totalEventRatingSum / totalResponses; // out of 5
-    const avgHiringScore = hiringScoreSum / totalResponses; // out of 100
-    const avgCollabScore = collabScoreSum / totalResponses; // out of 100
-
-    const readinessScore = Math.round(
-      (avgEventRating * 20) + // max score 20
-      (avgHiringScore * 0.4) + // max score 40
-      (avgCollabScore * 0.4)   // max score 40
-    );
-
-    // Interpretations
-    let interp = "Needs Alignment";
-    let interpDesc = "Curriculum should align with requested frameworks immediately.";
-    if (readinessScore >= 80) {
-      interp = "Highly Aligned";
-      interpDesc = "Graduates closely match current hiring demands and standards.";
-    } else if (readinessScore >= 60) {
-      interp = "Moderately Aligned";
-      interpDesc = "Opportunities exist to bridge key skill gaps in AI and cloud practices.";
-    }
-
-    const readinessInterpEl = document.getElementById("ai-readiness-interpretation");
-    const readinessDescEl = document.getElementById("ai-readiness-interpretation-desc");
-    if (readinessInterpEl) readinessInterpEl.innerText = interp;
-    if (readinessDescEl) readinessDescEl.innerText = interpDesc;
-
-    // Animate SVG Gauge
-    const gaugeFill = document.querySelector(".gauge-fill");
-    const gaugeVal = document.getElementById("ai-readiness-score-val");
-    if (gaugeFill && gaugeVal) {
-      // Circumference is 2 * PI * r = 2 * 3.1415 * 60 = 377
-      const circumference = 377;
-      const offset = circumference - (readinessScore / 100) * circumference;
-      
-      // Trigger SVG redraw transition
-      setTimeout(() => {
-        gaugeFill.style.strokeDashoffset = offset;
-        gaugeVal.innerText = readinessScore;
-      }, 100);
-    }
-  }
+  init: () => { }
 };
 
-/* --- ADMIN TAB 6: REPORTS & EXPORTS --- */
+/* --- ADMIN TAB 6: REPORTS & EXPORTS (DEPRECATED) --- */
 const ReportsTab = {
-  init: () => {
-    const dlPdf = document.getElementById("report-dl-pdf");
-    const dlExcel = document.getElementById("report-dl-excel");
-    const dlSummary = document.getElementById("report-dl-summary");
-
-    if (dlExcel) {
-      const newDlExcel = dlExcel.cloneNode(true);
-      dlExcel.parentNode.replaceChild(newDlExcel, dlExcel);
-      newDlExcel.addEventListener("click", () => exportToExcel());
-    }
-
-    if (dlPdf) {
-      const newDlPdf = dlPdf.cloneNode(true);
-      dlPdf.parentNode.replaceChild(newDlPdf, dlPdf);
-      newDlPdf.addEventListener("click", () => exportToPdf());
-    }
-
-    if (dlSummary) {
-      const newDlSummary = dlSummary.cloneNode(true);
-      dlSummary.parentNode.replaceChild(newDlSummary, dlSummary);
-      newDlSummary.addEventListener("click", () => {
-        // Trigger dashboard print or print dialog
-        window.print();
-      });
-    }
-  }
+  init: () => { }
 };
+
 
 /* --- ADMIN TAB 7: SETTINGS & BACKUP/RESTORE --- */
 const SettingsTab = {
@@ -1571,7 +936,7 @@ const SettingsTab = {
         const url = URL.createObjectURL(blob);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `hr_insight_db_backup_${new Date().toISOString().slice(0,10)}.json`;
+        a.download = `hr_insight_db_backup_${new Date().toISOString().slice(0, 10)}.json`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -1704,7 +1069,7 @@ async function exportToExcel() {
     "Mobile Number": r.hrInfo.mobileNumber,
     "City": r.hrInfo.city,
     "LinkedIn Profile": r.hrInfo.linkedinProfile,
-    
+
     // Ratings
     "Organization Rating": r.eventFeedback.organization,
     "Hospitality Rating": r.eventFeedback.hospitality,
@@ -1740,13 +1105,13 @@ async function exportToExcel() {
       const worksheet = XLSX.utils.json_to_sheet(excelData);
       const workbook = XLSX.utils.book_new();
       XLSX.utils.book_append_sheet(workbook, worksheet, "HR Feedbacks");
-      XLSX.writeFile(workbook, `HR_Summit_Feedback_Report_${new Date().toISOString().slice(0,10)}.xlsx`);
+      XLSX.writeFile(workbook, `HR_Summit_Feedback_Report_${new Date().toISOString().slice(0, 10)}.xlsx`);
     } else {
       // Fallback CSV download if XLSX CDN fails
       let csvContent = "data:text/csv;charset=utf-8,";
       const headers = Object.keys(excelData[0]).join(",");
       csvContent += headers + "\r\n";
-      
+
       excelData.forEach(row => {
         const rowData = Object.values(row).map(val => {
           let str = String(val).replace(/"/g, '""');
@@ -1758,7 +1123,7 @@ async function exportToExcel() {
       const encodedUri = encodeURI(csvContent);
       const a = document.createElement("a");
       a.setAttribute("href", encodedUri);
-      a.setAttribute("download", `HR_Summit_Feedback_Report_${new Date().toISOString().slice(0,10)}.csv`);
+      a.setAttribute("download", `HR_Summit_Feedback_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
