@@ -4,9 +4,14 @@ import {
   push,
   set,
   get,
-  child
+  child,
+  app
 }
   from "./firebase.js";
+import { getAuth, signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+
+const auth = getAuth(app);
+
 document.addEventListener("DOMContentLoaded", () => {
   // Initialize Database
   initDatabase();
@@ -98,6 +103,17 @@ const Database = {
   }
 
 };
+
+async function adminLogin(email, password) {
+  try {
+    await signInWithEmailAndPassword(auth, email, password);
+    AppStore.state.loggedIn = true;
+    sessionStorage.setItem("hr_portal_admin_session", "true");
+    AppStore.navigate("admin");
+  } catch (error) {
+    alert("Invalid Email or Password");
+  }
+}
 
 /* ==========================================
    Application State Store
@@ -192,18 +208,8 @@ const AppStore = {
   },
 
   login: (username, password) => {
-    if (username === "admin" && password === "admin321") {
-      AppStore.state.loggedIn = true;
-    sessionStorage.setItem("hr_portal_admin_session", "true");
-    document.getElementById("login-error").style.display = "none";
-    AppStore.navigate("admin");
-    return true;
-  } else {
-    document.getElementById("login-error").style.display = "block";
-    document.getElementById("login-error").innerText = "Invalid credentials. Please use admin / admin123.";
-    return false;
-  }
-},
+    adminLogin(username, password);
+  },
 
   logout: () => {
     AppStore.state.loggedIn = false;
