@@ -1903,8 +1903,15 @@ textarea.form-control {
     grid-column: span 1;
   }
   .radio-group {
-    flex-direction: column;
+    display: flex;
+    flex-wrap: wrap;
     gap: 10px;
+  }
+  .radio-group .radio-item {
+    flex: 1 1 calc(50% - 5px);
+  }
+  .radio-group .radio-item:last-child {
+    flex: 1 1 100%;
   }
   .charts-grid {
     grid-template-columns: 1fr;
