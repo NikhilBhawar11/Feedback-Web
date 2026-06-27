@@ -1902,6 +1902,10 @@ textarea.form-control {
   .input-grid-full {
     grid-column: span 1;
   }
+  .radio-group {
+    flex-direction: column;
+    gap: 10px;
+  }
   .charts-grid {
     grid-template-columns: 1fr;
   }
