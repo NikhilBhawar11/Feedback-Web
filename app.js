@@ -1045,44 +1045,43 @@ async function exportToExcel() {
   // Format dataset flatly for Excel columns
   const excelData = data.map((r, i) => ({
     "S.No": i + 1,
-    "Date Submitted": new Date(r.timestamp).toLocaleString(),
-    "Full Name": r.hrInfo.fullName,
-    "Designation": r.hrInfo.designation,
-    "Company Name": r.hrInfo.companyName,
-    "Industry Domain": r.hrInfo.industryDomain,
-    "Email": r.hrInfo.email,
-    "Mobile Number": r.hrInfo.mobileNumber,
-    "City": r.hrInfo.city,
-    "LinkedIn Profile": r.hrInfo.linkedinProfile,
+    "Date Submitted": r.timestamp ? new Date(r.timestamp).toLocaleString() : "N/A",
+    "Full Name": (r.hrInfo && r.hrInfo.fullName) ? r.hrInfo.fullName : "N/A",
+    "Designation": (r.hrInfo && r.hrInfo.designation) ? r.hrInfo.designation : "N/A",
+    "Company Name": (r.hrInfo && r.hrInfo.companyName) ? r.hrInfo.companyName : "N/A",
+    "Industry Domain": (r.hrInfo && r.hrInfo.industryDomain) ? r.hrInfo.industryDomain : "N/A",
+    "Email": (r.hrInfo && r.hrInfo.email) ? r.hrInfo.email : "N/A",
+    "Mobile Number": (r.hrInfo && r.hrInfo.mobileNumber) ? r.hrInfo.mobileNumber : "N/A",
+    "City": (r.hrInfo && r.hrInfo.city) ? r.hrInfo.city : "N/A",
 
     // Ratings
-    "Organization Rating": r.eventFeedback.organization,
-    "Hospitality Rating": r.eventFeedback.hospitality,
-    "Student Interaction Rating": r.eventFeedback.studentInteraction,
-    "Food & Accommodation Rating": r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : r.eventFeedback.technicalSessions,
-    "Venue Arrangements Rating": r.eventFeedback.venueArrangements,
-    "Average Event Rating": ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + (r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : (r.eventFeedback.technicalSessions || 0)) + r.eventFeedback.venueArrangements) / 5).toFixed(1),
-    "Liked Most Comments": r.eventFeedback.likedMost,
+    "Organization Rating": (r.eventFeedback && r.eventFeedback.organization) || 0,
+    "Hospitality Rating": (r.eventFeedback && r.eventFeedback.hospitality) || 0,
+    "Student Interaction Rating": (r.eventFeedback && r.eventFeedback.studentInteraction) || 0,
+    "Food & Accommodation Rating": r.eventFeedback ? (r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : (r.eventFeedback.technicalSessions || 0)) : 0,
+    "Venue Arrangements Rating": (r.eventFeedback && r.eventFeedback.venueArrangements) || 0,
+    "Average Event Rating": r.eventFeedback ? (((r.eventFeedback.organization || 0) + (r.eventFeedback.hospitality || 0) + (r.eventFeedback.studentInteraction || 0) + (r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : (r.eventFeedback.technicalSessions || 0)) + (r.eventFeedback.venueArrangements || 0)) / 5).toFixed(1) : "0.0",
+    "Liked Most Comments": (r.eventFeedback && r.eventFeedback.likedMost) || "N/A",
 
     // Expectations
-    "Demanded Skills List": r.industryExpectations.demandedSkills.join(", "),
-    "Top Focus Areas": r.industryExpectations.topFocusSkills,
+    "Demanded Skills List": (r.industryExpectations && r.industryExpectations.demandedSkills) ? r.industryExpectations.demandedSkills.join(", ") : "",
+    "Top Focus Areas": (r.industryExpectations && r.industryExpectations.topFocusSkills) || "N/A",
 
     // Hiring
-    "Hires Freshers": r.hiringInsights.hiresFreshers,
-    "Hiring Roles": r.hiringInsights.hiringRoles.join(", "),
-    "Fresher Salary Range": r.hiringInsights.salaryRange,
-    "Hiring Plans Next Year": r.hiringInsights.hiringPlansNextYear,
+    "Hires Freshers": (r.hiringInsights && r.hiringInsights.hiresFreshers) || "N/A",
+    "Hiring Roles": (r.hiringInsights && r.hiringInsights.hiringRoles) ? r.hiringInsights.hiringRoles.join(", ") : "",
+    "Fresher Salary Range": (r.hiringInsights && r.hiringInsights.salaryRange) || "N/A",
+    "Hiring Plans Next Year": (r.hiringInsights && r.hiringInsights.hiringPlansNextYear) || "N/A",
 
     // Curriculum
-    "Topics to Teach More": r.curriculumFeedback.topicsToTeachMore,
-    "Practical Gaps Identified": r.curriculumFeedback.practicalExposureMissing,
-    "Curriculum Suggestions": r.curriculumFeedback.curriculumImprovementSuggestions,
+    "Topics to Teach More": (r.curriculumFeedback && r.curriculumFeedback.topicsToTeachMore) || "N/A",
+    "Practical Gaps Identified": (r.curriculumFeedback && r.curriculumFeedback.practicalExposureMissing) || "N/A",
+    "Curriculum Suggestions": (r.curriculumFeedback && r.curriculumFeedback.curriculumImprovementSuggestions) || "N/A",
 
     // Collab
-    "Future Collaboration Interest": r.finalSuggestions.futureCollaboration,
-    "Collaboration Topics Selected": r.finalSuggestions.collaborationInterests.join(", "),
-    "General Suggestions": r.finalSuggestions.generalSuggestions
+    "Future Collaboration Interest": (r.finalSuggestions && r.finalSuggestions.futureCollaboration) || "N/A",
+    "Collaboration Topics Selected": (r.finalSuggestions && r.finalSuggestions.collaborationInterests) ? r.finalSuggestions.collaborationInterests.join(", ") : "",
+    "General Suggestions": (r.finalSuggestions && r.finalSuggestions.generalSuggestions) || "N/A"
   }));
 
   try {
