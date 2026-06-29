@@ -403,10 +403,10 @@ function validateForm() {
     }
   });
 
-  // Hires Freshers radio check
-  const hiresFreshers = document.querySelector("input[name='hires-freshers']:checked");
-  if (!hiresFreshers) {
-    showRadioError("hires-freshers", "Please select hiring status.");
+  // Connect Month select check
+  const connectMonth = document.getElementById("connect-month");
+  if (!connectMonth || !connectMonth.value) {
+    showInputError(connectMonth, "Please select recruitment month.");
     isValid = false;
   }
 
@@ -516,7 +516,7 @@ async function submitFeedbackForm() {
 
   // Section 4: Hiring Insights
   const hiringInsights = {
-    hiresFreshers: document.querySelector("input[name='hires-freshers']:checked").value,
+    hiresFreshers: document.getElementById("connect-month").value,
     hiringRoles: [],
     salaryRange: "3-5 LPA",
     hiringPlansNextYear: "N/A"
@@ -593,7 +593,7 @@ const DashboardTab = {
 
       // Hiring status
       if (r.hiringInsights && r.hiringInsights.hiresFreshers) {
-        if (r.hiringInsights.hiresFreshers === "Yes" || r.hiringInsights.hiresFreshers === "Occasionally") {
+        if (r.hiringInsights.hiresFreshers && r.hiringInsights.hiresFreshers !== "No") {
           hiringCount++;
         }
       }
@@ -680,7 +680,7 @@ const RecordsTab = {
               ★ ${avgScore} / 5.0
             </div>
             <div style="font-size: 0.8rem; margin-top: 4px; color: var(--text-muted);">
-               Hires freshers: <span class="badge ${r.hiringInsights.hiresFreshers === 'Yes' ? 'badge-success' : r.hiringInsights.hiresFreshers === 'Occasionally' ? 'badge-warning' : 'badge-danger'}">${r.hiringInsights.hiresFreshers || 'No'}</span>
+               Recruitment Month: <span class="badge badge-info">${r.hiringInsights.hiresFreshers || 'N/A'}</span>
             </div>
           </div>
         </div>
@@ -701,7 +701,7 @@ const RecordsTab = {
             </div>
           </div>
           <div class="record-column">
-            <h5>Curriculum Suggestions</h5>
+            <h5>Scope for Improvement</h5>
             <p style="font-size:0.85rem; line-height: 1.4;">${r.curriculumFeedback.curriculumImprovementSuggestions || 'N/A'}</p>
           </div>
         </div>
@@ -794,14 +794,13 @@ const DirectoryTab = {
     } else {
       paginatedData.forEach(r => {
         const row = document.createElement("tr");
-        const badgeClass = r.hiringInsights.hiresFreshers === "Yes" ? "badge-success" : r.hiringInsights.hiresFreshers === "Occasionally" ? "badge-warning" : "badge-danger";
 
         row.innerHTML = `
           <td class="hr-name-col">${r.hrInfo.fullName}</td>
           <td class="hr-company-col">
             <div style="font-weight: 700;">${r.hrInfo.companyName}</div>
           </td>
-          <td><span class="badge ${badgeClass}">${r.hiringInsights.hiresFreshers}</span></td>
+          <td><span class="badge badge-info">${r.hiringInsights.hiresFreshers || 'N/A'}</span></td>
         `;
         tableBody.appendChild(row);
       });
@@ -1068,7 +1067,7 @@ async function exportToExcel() {
     "Top Focus Areas": (r.industryExpectations && r.industryExpectations.topFocusSkills) || "N/A",
 
     // Hiring
-    "Hires Freshers": (r.hiringInsights && r.hiringInsights.hiresFreshers) || "N/A",
+    "Recruitment Month": (r.hiringInsights && r.hiringInsights.hiresFreshers) || "N/A",
     "Hiring Roles": (r.hiringInsights && r.hiringInsights.hiringRoles) ? r.hiringInsights.hiringRoles.join(", ") : "",
     "Fresher Salary Range": (r.hiringInsights && r.hiringInsights.salaryRange) || "N/A",
     "Hiring Plans Next Year": (r.hiringInsights && r.hiringInsights.hiringPlansNextYear) || "N/A",

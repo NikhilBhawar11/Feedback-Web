@@ -25,7 +25,7 @@ const initialMockData = [
       topFocusSkills: "1. Problem Solving, 2. Clean Coding in Python/Java, 3. SQL & Database Basics, 4. Generative AI Awareness, 5. Team Communication."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Software Engineer", "Data Analyst", "Internships"],
       salaryRange: "3-5 LPA",
       hiringPlansNextYear: "Planning to onboard around 150+ graduates across multiple development centers next year."
@@ -67,7 +67,7 @@ const initialMockData = [
       topFocusSkills: "1. Structured Communication, 2. Advanced Excel and SQL, 3. Business Analytics, 4. Logical Reasoning, 5. Presentation Skills."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Data Analyst", "Business Analyst", "Internships"],
       salaryRange: "5-8 LPA",
       hiringPlansNextYear: "Hiring for consultant and analyst profiles. Focus on strong business acumen and analytical skills."
@@ -109,7 +109,7 @@ const initialMockData = [
       topFocusSkills: "1. Core Computer Science Fundamentals, 2. Machine Learning Systems, 3. Mathematical Logic, 4. Python scripting, 5. Prompt Engineering basics."
     },
     hiringInsights: {
-      hiresFreshers: "Occasionally",
+      hiresFreshers: "March",
       hiringRoles: ["AI Engineer", "Software Engineer", "Internships"],
       salaryRange: "Above 12 LPA",
       hiringPlansNextYear: "Looking for top-tier talent in AI and machine learning. Select hires for research roles."
@@ -151,7 +151,7 @@ const initialMockData = [
       topFocusSkills: "1. Financial Market Basics, 2. SQL & Query writing, 3. Verbal & Written Communication, 4. Attention to detail, 5. Ethics in Business."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Business Analyst", "Internships"],
       salaryRange: "3-5 LPA",
       hiringPlansNextYear: "We recruit 30-40 MBA/B.Tech freshers annually for analytical and business operations roles."
@@ -193,7 +193,7 @@ const initialMockData = [
       topFocusSkills: "1. Data Structures & Algorithms, 2. Object Oriented Design (Java/C++), 3. Systems Architecture, 4. CI/CD and Cloud Deployments, 5. Collaborative Coding."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Software Engineer", "Full Stack Developer", "Cloud Engineer", "Internships"],
       salaryRange: "8-12 LPA",
       hiringPlansNextYear: "Ongoing placement visits. Targetting hiring 25-30 candidates for software engineering roles."
@@ -235,7 +235,7 @@ const initialMockData = [
       topFocusSkills: "1. Programming fundamentals, 2. RDBMS and SQL, 3. Aptitude & Reasoning, 4. Soft Skills & Team Dynamics, 5. basic Web Development."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Software Engineer", "Data Analyst", "Internships"],
       salaryRange: "3-5 LPA",
       hiringPlansNextYear: "High hiring volume expected. Recruits bulk candidates for entry-level engineering roles."
@@ -277,7 +277,7 @@ const initialMockData = [
       topFocusSkills: "1. Cloud Foundations (AWS/Azure), 2. Scripting & Automation, 3. General Analytics, 4. Adaptability & Quick Learning, 5. Business Etiquette."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Software Engineer", "Cloud Engineer", "Business Analyst"],
       salaryRange: "3-5 LPA",
       hiringPlansNextYear: "Active hiring for multiple technology support and consulting lines next fiscal year."
@@ -319,7 +319,7 @@ const initialMockData = [
       topFocusSkills: "1. Advanced AI/ML algorithms, 2. Vector Databases and Embeddings, 3. Python backend frameworks (FastAPI/Django), 4. Modern Javascript (React), 5. System administration."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["AI Engineer", "Software Engineer", "Full Stack Developer", "Internships"],
       salaryRange: "8-12 LPA",
       hiringPlansNextYear: "Hiring 5-10 core engineers who are passionate about startup culture and Generative AI."
@@ -361,7 +361,7 @@ const initialMockData = [
       topFocusSkills: "1. Data Literacy & Excel, 2. Business Process Understanding, 3. Empathetic Communication, 4. Working under timelines, 5. Analytical Mindset."
     },
     hiringInsights: {
-      hiresFreshers: "Occasionally",
+      hiresFreshers: "March",
       hiringRoles: ["Data Analyst", "Internships"],
       salaryRange: "3-5 LPA",
       hiringPlansNextYear: "Hiring for operations analytics and IT support teams. 10-15 vacancies next year."
@@ -403,7 +403,7 @@ const initialMockData = [
       topFocusSkills: "1. Strong Computer Science core, 2. System design concepts, 3. Cloud Native Application building, 4. AI-assisted programming, 5. Integrity and ownership."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Software Engineer", "AI Engineer", "Internships"],
       salaryRange: "Above 12 LPA",
       hiringPlansNextYear: "Hiring through campus programs. Strong intake of interns next year."
@@ -445,7 +445,7 @@ const initialMockData = [
       topFocusSkills: "1. Core Java and Spring Boot, 2. Database foundations, 3. Team Collaboration, 4. Presentation & Pitching, 5. Agile workflows."
     },
     hiringInsights: {
-      hiresFreshers: "Yes",
+      hiresFreshers: "October",
       hiringRoles: ["Software Engineer", "Internships"],
       salaryRange: "3-5 LPA",
       hiringPlansNextYear: "Hiring target: 80+ campus selections next academic year. Consistent numbers."
@@ -487,7 +487,7 @@ const initialMockData = [
       topFocusSkills: "1. Interpersonal skills, 2. Basic software usage (Word, PPT, Excel), 3. Willingness to learn, 4. Project coordination."
     },
     hiringInsights: {
-      hiresFreshers: "No",
+      hiresFreshers: "June",
       hiringRoles: [],
       salaryRange: "Less than 3 LPA",
       hiringPlansNextYear: "No current plans for technical hiring of graduates. Only looking for experienced sales/support."

@@ -261,6 +261,7 @@ button {
   align-items: center;
   justify-content: space-between;
   width: 100%;
+  position: relative;
 }
 
 .logo {
@@ -268,8 +269,11 @@ button {
   align-items: center;
   gap: 10px;
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   color: var(--primary);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .dark .logo {
   color: #60a5fa;

@@ -214,19 +214,29 @@
                   </script>
                 </div>
 
-                <!-- Q6: Recruitment Intent -->
+                <!-- Q6: Recruitment Connect Month -->
                 <div class="form-group" style="margin-bottom: 24px;">
-                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">6. Does your company hire fresh graduates? <span class="required">*</span></label>
-                  <div class="radio-group">
-                    <label class="radio-item"><input type="radio" name="hires-freshers" value="Yes"><span>Yes</span></label>
-                    <label class="radio-item"><input type="radio" name="hires-freshers" value="No"><span>No</span></label>
-                    <label class="radio-item"><input type="radio" name="hires-freshers" value="Occasionally"><span>Occasionally</span></label>
-                  </div>
+                  <label for="connect-month" style="font-weight: 600; display: block; margin-bottom: 8px;">6. In which month university should connect you for recruitment? <span class="required">*</span></label>
+                  <select id="connect-month" class="form-control" style="width: 100%; border-radius: var(--radius-md); padding: 10px; border: 1px solid var(--border-color); background-color: var(--bg-surface); color: var(--text-main);" required>
+                    <option value="">Select Month</option>
+                    <option value="January">January</option>
+                    <option value="February">February</option>
+                    <option value="March">March</option>
+                    <option value="April">April</option>
+                    <option value="May">May</option>
+                    <option value="June">June</option>
+                    <option value="July">July</option>
+                    <option value="August">August</option>
+                    <option value="September">September</option>
+                    <option value="October">October</option>
+                    <option value="November">November</option>
+                    <option value="December">December</option>
+                  </select>
                 </div>
 
-                <!-- Q7: Curriculum Design Suggestions -->
+                <!-- Q7: Scope for Improvement -->
                 <div class="form-group" style="margin-bottom: 24px;">
-                  <label for="hr-curriculum-suggestions" style="font-weight: 600; display: block; margin-bottom: 8px;">7. What are your recommendations or suggestions for our curriculum design improvement?</label>
+                  <label for="hr-curriculum-suggestions" style="font-weight: 600; display: block; margin-bottom: 8px;">7. As we were hosting the summit for the first time, kindly suggest the scope for the improvement</label>
                   <textarea id="hr-curriculum-suggestions" class="form-control" style="min-height: 120px;" placeholder="Please share actionable suggestions..."></textarea>
                 </div>
               </div>
@@ -491,10 +501,19 @@
               </div>
               <div class="filters-wrapper">
                 <select id="dir-filter-hiring" class="filter-select">
-                  <option value="">All Hiring</option>
-                  <option value="Yes">Yes</option>
-                  <option value="Occasionally">Occasionally</option>
-                  <option value="No">No</option>
+                  <option value="">All Months</option>
+                  <option value="January">January</option>
+                  <option value="February">February</option>
+                  <option value="March">March</option>
+                  <option value="April">April</option>
+                  <option value="May">May</option>
+                  <option value="June">June</option>
+                  <option value="July">July</option>
+                  <option value="August">August</option>
+                  <option value="September">September</option>
+                  <option value="October">October</option>
+                  <option value="November">November</option>
+                  <option value="December">December</option>
                 </select>
               </div>
             </div>
@@ -506,7 +525,7 @@
                   <tr>
                     <th>Full Name</th>
                     <th>Company Name</th>
-                    <th>Hires Freshers</th>
+                    <th>Recruitment Month</th>
                   </tr>
                 </thead>
                 <tbody id="directory-table-body">
