@@ -1092,25 +1092,28 @@ async function exportToExcel() {
       XLSX.writeFile(workbook, `HR_Summit_Feedback_Report_${new Date().toISOString().slice(0, 10)}.xlsx`);
     } else {
       // Fallback CSV download if XLSX CDN fails
-      let csvContent = "data:text/csv;charset=utf-8,";
+      let csvRows = [];
       const headers = Object.keys(excelData[0]).join(",");
-      csvContent += headers + "\r\n";
+      csvRows.push(headers);
 
       excelData.forEach(row => {
         const rowData = Object.values(row).map(val => {
           let str = String(val).replace(/"/g, '""');
           return `"${str}"`;
         }).join(",");
-        csvContent += rowData + "\r\n";
+        csvRows.push(rowData);
       });
 
-      const encodedUri = encodeURI(csvContent);
+      const csvString = csvRows.join("\r\n");
+      const blob = new Blob([csvString], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
       const a = document.createElement("a");
-      a.setAttribute("href", encodedUri);
+      a.setAttribute("href", url);
       a.setAttribute("download", `HR_Summit_Feedback_Report_${new Date().toISOString().slice(0, 10)}.csv`);
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
+      URL.revokeObjectURL(url);
     }
   } catch (err) {
     console.error("Excel Export Error:", err);
