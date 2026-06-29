@@ -377,7 +377,7 @@ function validateForm() {
   clearFormErrors();
   let isValid = true;
 
-  // Validate Name & Designation
+  // Validate Name & Company Name
   const nameEl = document.getElementById("hr-name");
   if (!nameEl || !nameEl.value.trim()) {
     showInputError(nameEl, "Full Name is required.");
@@ -386,12 +386,12 @@ function validateForm() {
 
   const designationEl = document.getElementById("hr-designation");
   if (!designationEl || !designationEl.value.trim()) {
-    showInputError(designationEl, "Designation is required.");
+    showInputError(designationEl, "Company name is required.");
     isValid = false;
   }
 
-  // Validate star ratings (Organization, Hospitality, studentInteraction, technicalSessions)
-  const ratingCategories = ["organization", "hospitality", "studentInteraction", "technicalSessions"];
+  // Validate star ratings (Hospitality, studentInteraction, foodAccommodation, Organization)
+  const ratingCategories = ["hospitality", "studentInteraction", "foodAccommodation", "organization"];
   ratingCategories.forEach(cat => {
     const selected = document.querySelector(`input[name="rate-${cat}"]:checked`);
     if (!selected) {
@@ -481,7 +481,7 @@ async function submitFeedbackForm() {
   const hrInfo = {
     fullName: document.getElementById("hr-name").value.trim(),
     designation: document.getElementById("hr-designation").value.trim(),
-    companyName: "Not provided",
+    companyName: document.getElementById("hr-designation").value.trim(),
     industryDomain: "Other",
     email: "Not provided",
     mobileNumber: "Not provided",
@@ -494,7 +494,7 @@ async function submitFeedbackForm() {
     organization: parseInt(document.querySelector("input[name='rate-organization']:checked").value),
     hospitality: hospitalityVal,
     studentInteraction: parseInt(document.querySelector("input[name='rate-studentInteraction']:checked").value),
-    technicalSessions: parseInt(document.querySelector("input[name='rate-technicalSessions']:checked").value),
+    foodAccommodation: parseInt(document.querySelector("input[name='rate-foodAccommodation']:checked").value),
     venueArrangements: hospitalityVal,
     likedMost: "N/A"
   };
@@ -581,7 +581,8 @@ const DashboardTab = {
       // Event Ratings
       const ratings = r.eventFeedback;
       if (ratings) {
-        totalScoreSum += (ratings.organization + ratings.hospitality + ratings.studentInteraction + ratings.technicalSessions);
+        const foodAcc = ratings.foodAccommodation !== undefined ? ratings.foodAccommodation : (ratings.technicalSessions || 0);
+        totalScoreSum += (ratings.organization + ratings.hospitality + ratings.studentInteraction + foodAcc);
         ratingCount += 4;
 
         if (ratings.studentInteraction !== undefined && ratings.studentInteraction !== null) {
@@ -616,7 +617,8 @@ const DashboardTab = {
       } else {
         // Take top 4 recent
         data.slice(0, 4).forEach(r => {
-          const ratingVal = r.eventFeedback ? ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions) / 4).toFixed(1) : "N/A";
+          const foodAcc = r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : (r.eventFeedback.technicalSessions || 0);
+          const ratingVal = r.eventFeedback ? ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + foodAcc) / 4).toFixed(1) : "N/A";
           const rowDiv = document.createElement("div");
           rowDiv.className = "recent-item";
           rowDiv.style.display = "flex";
@@ -658,7 +660,8 @@ const RecordsTab = {
     }
 
     data.forEach((r, idx) => {
-      const avgScore = ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions) / 4).toFixed(1);
+      const foodAcc = r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : (r.eventFeedback.technicalSessions || 0);
+      const avgScore = ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + foodAcc) / 4).toFixed(1);
       const card = document.createElement("div");
       card.className = "record-card glass-card";
 
@@ -677,7 +680,7 @@ const RecordsTab = {
               ★ ${avgScore} / 5.0
             </div>
             <div style="font-size: 0.8rem; margin-top: 4px; color: var(--text-muted);">
-              Hires freshers: <span class="badge ${r.hiringInsights.hiresFreshers === 'Yes' ? 'badge-success' : r.hiringInsights.hiresFreshers === 'Occasionally' ? 'badge-warning' : 'badge-danger'}">${r.hiringInsights.hiresFreshers || 'No'}</span>
+               Hires freshers: <span class="badge ${r.hiringInsights.hiresFreshers === 'Yes' ? 'badge-success' : r.hiringInsights.hiresFreshers === 'Occasionally' ? 'badge-warning' : 'badge-danger'}">${r.hiringInsights.hiresFreshers || 'No'}</span>
             </div>
           </div>
         </div>
@@ -685,10 +688,10 @@ const RecordsTab = {
           <div class="record-column">
             <h5>Event Feedbacks</h5>
             <div style="font-size: 0.85rem; display: flex; flex-direction: column; gap: 4px; color: var(--text-muted);">
-              <div>Organization: <strong>${r.eventFeedback.organization}/5</strong></div>
               <div>Hospitality: <strong>${r.eventFeedback.hospitality}/5</strong></div>
               <div>Student Interaction: <strong>${r.eventFeedback.studentInteraction}/5</strong></div>
-              <div>Sessions Quality: <strong>${r.eventFeedback.technicalSessions}/5</strong></div>
+              <div>Food & Accommodation: <strong>${foodAcc}/5</strong></div>
+              <div>Organization: <strong>${r.eventFeedback.organization}/5</strong></div>
             </div>
           </div>
           <div class="record-column">
@@ -1080,9 +1083,9 @@ async function exportToExcel() {
     "Organization Rating": r.eventFeedback.organization,
     "Hospitality Rating": r.eventFeedback.hospitality,
     "Student Interaction Rating": r.eventFeedback.studentInteraction,
-    "Technical Sessions Rating": r.eventFeedback.technicalSessions,
+    "Food & Accommodation Rating": r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : r.eventFeedback.technicalSessions,
     "Venue Arrangements Rating": r.eventFeedback.venueArrangements,
-    "Average Event Rating": ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + r.eventFeedback.technicalSessions + r.eventFeedback.venueArrangements) / 5).toFixed(1),
+    "Average Event Rating": ((r.eventFeedback.organization + r.eventFeedback.hospitality + r.eventFeedback.studentInteraction + (r.eventFeedback.foodAccommodation !== undefined ? r.eventFeedback.foodAccommodation : (r.eventFeedback.technicalSessions || 0)) + r.eventFeedback.venueArrangements) / 5).toFixed(1),
     "Liked Most Comments": r.eventFeedback.likedMost,
 
     // Expectations

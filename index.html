@@ -117,8 +117,8 @@
                     <input type="text" id="hr-name" class="form-control" placeholder="e.g. Srinivas Rao">
                   </div>
                   <div class="form-group">
-                    <label for="hr-designation">Designation <span class="required">*</span></label>
-                    <input type="text" id="hr-designation" class="form-control" placeholder="e.g. Talent Acquisition Head">
+                    <label for="hr-designation">Company name <span class="required">*</span></label>
+                    <input type="text" id="hr-designation" class="form-control" placeholder="e.g. Google">
                   </div>
                 </div>
 
@@ -129,23 +129,9 @@
                   <p style="margin-bottom: 20px;">Please answer the following questions regarding the event and industry expectations.</p>
                 </div>
 
-                <!-- Q1: Event Organization -->
+                <!-- Q1: Hospitality & Arrangements (originally Q2) -->
                 <div class="form-group" style="margin-bottom: 24px;">
-                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">1. How would you rate the overall organisation & coordination of the HR Summit? <span class="required">*</span></label>
-                  <div class="rating-row" id="rating-container-organization" style="border: none; padding: 0; background: none;">
-                    <div class="stars-container" style="justify-content: flex-start;">
-                      <input type="radio" name="rate-organization" id="org-5" value="5" class="star-checkbox"><label for="org-5" class="star-icon">★</label>
-                      <input type="radio" name="rate-organization" id="org-4" value="4" class="star-checkbox"><label for="org-4" class="star-icon">★</label>
-                      <input type="radio" name="rate-organization" id="org-3" value="3" class="star-checkbox"><label for="org-3" class="star-icon">★</label>
-                      <input type="radio" name="rate-organization" id="org-2" value="2" class="star-checkbox"><label for="org-2" class="star-icon">★</label>
-                      <input type="radio" name="rate-organization" id="org-1" value="1" class="star-checkbox"><label for="org-1" class="star-icon">★</label>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Q2: Hospitality & Arrangements -->
-                <div class="form-group" style="margin-bottom: 24px;">
-                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">2. How would you rate the hospitality and venue arrangements? <span class="required">*</span></label>
+                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">1. How would you rate the hospitality and venue arrangements? <span class="required">*</span></label>
                   <div class="rating-row" id="rating-container-hospitality" style="border: none; padding: 0; background: none;">
                     <div class="stars-container" style="justify-content: flex-start;">
                       <input type="radio" name="rate-hospitality" id="hosp-5" value="5" class="star-checkbox"><label for="hosp-5" class="star-icon">★</label>
@@ -157,9 +143,9 @@
                   </div>
                 </div>
 
-                <!-- Q3: Student Interaction -->
+                <!-- Q2: Student Interaction (originally Q3) -->
                 <div class="form-group" style="margin-bottom: 24px;">
-                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">3. How was the quality of interaction with our students? <span class="required">*</span></label>
+                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">2. How was the quality of interaction with our students? <span class="required">*</span></label>
                   <div class="rating-row" id="rating-container-studentInteraction" style="border: none; padding: 0; background: none;">
                     <div class="stars-container" style="justify-content: flex-start;">
                       <input type="radio" name="rate-studentInteraction" id="stu-5" value="5" class="star-checkbox"><label for="stu-5" class="star-icon">★</label>
@@ -171,16 +157,30 @@
                   </div>
                 </div>
 
-                <!-- Q4: Technical Sessions -->
+                <!-- Q3: Quality of Food & Accommodation (originally Q4, renamed) -->
                 <div class="form-group" style="margin-bottom: 24px;">
-                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">4. How would you rate the quality of the technical sessions? <span class="required">*</span></label>
-                  <div class="rating-row" id="rating-container-technicalSessions" style="border: none; padding: 0; background: none;">
+                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">3. How would you rate the quality of food and accommodation? <span class="required">*</span></label>
+                  <div class="rating-row" id="rating-container-foodAccommodation" style="border: none; padding: 0; background: none;">
                     <div class="stars-container" style="justify-content: flex-start;">
-                      <input type="radio" name="rate-technicalSessions" id="tech-5" value="5" class="star-checkbox"><label for="tech-5" class="star-icon">★</label>
-                      <input type="radio" name="rate-technicalSessions" id="tech-4" value="4" class="star-checkbox"><label for="tech-4" class="star-icon">★</label>
-                      <input type="radio" name="rate-technicalSessions" id="tech-3" value="3" class="star-checkbox"><label for="tech-3" class="star-icon">★</label>
-                      <input type="radio" name="rate-technicalSessions" id="tech-2" value="2" class="star-checkbox"><label for="tech-2" class="star-icon">★</label>
-                      <input type="radio" name="rate-technicalSessions" id="tech-1" value="1" class="star-checkbox"><label for="tech-1" class="star-icon">★</label>
+                      <input type="radio" name="rate-foodAccommodation" id="food-5" value="5" class="star-checkbox"><label for="food-5" class="star-icon">★</label>
+                      <input type="radio" name="rate-foodAccommodation" id="food-4" value="4" class="star-checkbox"><label for="food-4" class="star-icon">★</label>
+                      <input type="radio" name="rate-foodAccommodation" id="food-3" value="3" class="star-checkbox"><label for="food-3" class="star-icon">★</label>
+                      <input type="radio" name="rate-foodAccommodation" id="food-2" value="2" class="star-checkbox"><label for="food-2" class="star-icon">★</label>
+                      <input type="radio" name="rate-foodAccommodation" id="food-1" value="1" class="star-checkbox"><label for="food-1" class="star-icon">★</label>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Q4: Event Organization (originally Q1) -->
+                <div class="form-group" style="margin-bottom: 24px;">
+                  <label style="font-weight: 600; display: block; margin-bottom: 8px;">4. How would you rate the overall organisation & coordination of the HR Summit? <span class="required">*</span></label>
+                  <div class="rating-row" id="rating-container-organization" style="border: none; padding: 0; background: none;">
+                    <div class="stars-container" style="justify-content: flex-start;">
+                      <input type="radio" name="rate-organization" id="org-5" value="5" class="star-checkbox"><label for="org-5" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-4" value="4" class="star-checkbox"><label for="org-4" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-3" value="3" class="star-checkbox"><label for="org-3" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-2" value="2" class="star-checkbox"><label for="org-2" class="star-icon">★</label>
+                      <input type="radio" name="rate-organization" id="org-1" value="1" class="star-checkbox"><label for="org-1" class="star-icon">★</label>
                     </div>
                   </div>
                 </div>
@@ -524,7 +524,7 @@
                   <tr>
                     <th>Full Name</th>
                     <th>Company / Domain</th>
-                    <th>Designation</th>
+                    <th>Company Name</th>
                     <th>Contacts</th>
                     <th>City</th>
                     <th>LinkedIn</th>

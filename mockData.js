@@ -16,7 +16,7 @@ const initialMockData = [
       organization: 5,
       hospitality: 5,
       studentInteraction: 4,
-      technicalSessions: 4,
+      foodAccommodation: 4,
       venueArrangements: 5,
       likedMost: "The quality of interactions during the student exhibit. Students were confident and well-prepared."
     },
@@ -58,7 +58,7 @@ const initialMockData = [
       organization: 4,
       hospitality: 4,
       studentInteraction: 5,
-      technicalSessions: 4,
+      foodAccommodation: 4,
       venueArrangements: 4,
       likedMost: "Hospitality was top notch. The panel discussions on industry trends were highly insightful."
     },
@@ -100,7 +100,7 @@ const initialMockData = [
       organization: 5,
       hospitality: 5,
       studentInteraction: 4,
-      technicalSessions: 5,
+      foodAccommodation: 5,
       venueArrangements: 5,
       likedMost: "The quality of technical discussions. The student projects around machine learning were highly innovative."
     },
@@ -142,7 +142,7 @@ const initialMockData = [
       organization: 4,
       hospitality: 5,
       studentInteraction: 3,
-      technicalSessions: 3,
+      foodAccommodation: 3,
       venueArrangements: 4,
       likedMost: "Networking lunch and the hospitality. Good turnout of corporate delegates."
     },
@@ -184,7 +184,7 @@ const initialMockData = [
       organization: 5,
       hospitality: 4,
       studentInteraction: 4,
-      technicalSessions: 4,
+      foodAccommodation: 4,
       venueArrangements: 4,
       likedMost: "Efficient management of the agenda. The feedback collection process is seamless."
     },
@@ -226,7 +226,7 @@ const initialMockData = [
       organization: 4,
       hospitality: 5,
       studentInteraction: 5,
-      technicalSessions: 3,
+      foodAccommodation: 3,
       venueArrangements: 5,
       likedMost: "The hospitality and the student presentations. Students possess good fundamental skills."
     },
@@ -268,7 +268,7 @@ const initialMockData = [
       organization: 5,
       hospitality: 4,
       studentInteraction: 4,
-      technicalSessions: 4,
+      foodAccommodation: 4,
       venueArrangements: 4,
       likedMost: "The infrastructure and setup. Extremely engaging interactions with placement officers."
     },
@@ -310,7 +310,7 @@ const initialMockData = [
       organization: 3,
       hospitality: 4,
       studentInteraction: 5,
-      technicalSessions: 5,
+      foodAccommodation: 5,
       venueArrangements: 4,
       likedMost: "Very interactive technical sessions. The Q&A session with students was lively and energetic."
     },
@@ -352,7 +352,7 @@ const initialMockData = [
       organization: 5,
       hospitality: 5,
       studentInteraction: 4,
-      technicalSessions: 3,
+      foodAccommodation: 3,
       venueArrangements: 4,
       likedMost: "Arrangements were smooth, and the hospitality was exceptional. Placements presentation was detailed."
     },
@@ -394,7 +394,7 @@ const initialMockData = [
       organization: 5,
       hospitality: 5,
       studentInteraction: 5,
-      technicalSessions: 5,
+      foodAccommodation: 5,
       venueArrangements: 5,
       likedMost: "The high caliber of student projects and the clarity of their presentations. Very impressed."
     },
@@ -436,7 +436,7 @@ const initialMockData = [
       organization: 4,
       hospitality: 4,
       studentInteraction: 4,
-      technicalSessions: 3,
+      foodAccommodation: 3,
       venueArrangements: 4,
       likedMost: "Organized panel discussions. Excellent focus on aligning academics with corporate realities."
     },
@@ -478,7 +478,7 @@ const initialMockData = [
       organization: 3,
       hospitality: 4,
       studentInteraction: 4,
-      technicalSessions: 4,
+      foodAccommodation: 4,
       venueArrangements: 4,
       likedMost: "Interactive atmosphere. Nice interaction with faculty coordinators."
     },
