@@ -716,9 +716,14 @@ const DirectoryTab = {
   init: () => {
     // Bind search and filter events
     const searchInput = document.getElementById("dir-search");
-    const domainFilter = document.getElementById("dir-filter-domain");
     const hiringFilter = document.getElementById("dir-filter-hiring");
-    const salaryFilter = document.getElementById("dir-filter-salary");
+    const dlExcelBtn = document.getElementById("dir-dl-excel");
+
+    if (dlExcelBtn) {
+      const newDlBtn = dlExcelBtn.cloneNode(true);
+      dlExcelBtn.parentNode.replaceChild(newDlBtn, dlExcelBtn);
+      newDlBtn.addEventListener("click", exportToExcel);
+    }
 
     if (searchInput) {
       searchInput.value = AppStore.state.filters.search;
@@ -732,24 +737,16 @@ const DirectoryTab = {
       });
     }
 
-    const filters = [
-      { el: domainFilter, key: "domain" },
-      { el: hiringFilter, key: "hiring" },
-      { el: salaryFilter, key: "salary" }
-    ];
-
-    filters.forEach(f => {
-      if (f.el) {
-        f.el.value = AppStore.state.filters[f.key];
-        const newEl = f.el.cloneNode(true);
-        f.el.parentNode.replaceChild(newEl, f.el);
-        newEl.addEventListener("change", (e) => {
-          AppStore.state.filters[f.key] = e.target.value;
-          AppStore.state.pagination.currentPage = 1;
-          DirectoryTab.renderTable();
-        });
-      }
-    });
+    if (hiringFilter) {
+      hiringFilter.value = AppStore.state.filters.hiring;
+      const newHiringFilter = hiringFilter.cloneNode(true);
+      hiringFilter.parentNode.replaceChild(newHiringFilter, hiringFilter);
+      newHiringFilter.addEventListener("change", (e) => {
+        AppStore.state.filters.hiring = e.target.value;
+        AppStore.state.pagination.currentPage = 1;
+        DirectoryTab.renderTable();
+      });
+    }
 
     DirectoryTab.renderTable();
   },
@@ -761,28 +758,19 @@ const DirectoryTab = {
 
     // Filter Logic
     const search = AppStore.state.filters.search.toLowerCase().trim();
-    const domain = AppStore.state.filters.domain;
     const hiring = AppStore.state.filters.hiring;
-    const salary = AppStore.state.filters.salary;
 
     const filteredData = data.filter(r => {
       // Search
       const searchMatch = !search ||
         r.hrInfo.fullName.toLowerCase().includes(search) ||
         r.hrInfo.companyName.toLowerCase().includes(search) ||
-        r.hrInfo.designation.toLowerCase().includes(search) ||
-        r.hrInfo.email.toLowerCase().includes(search);
-
-      // Domain
-      const domainMatch = !domain || r.hrInfo.industryDomain === domain;
+        r.hrInfo.designation.toLowerCase().includes(search);
 
       // Hiring status
       const hiringMatch = !hiring || r.hiringInsights.hiresFreshers === hiring;
 
-      // Salary Range
-      const salaryMatch = !salary || r.hiringInsights.salaryRange === salary;
-
-      return searchMatch && domainMatch && hiringMatch && salaryMatch;
+      return searchMatch && hiringMatch;
     });
 
     // Pagination Logic
@@ -802,7 +790,7 @@ const DirectoryTab = {
     // Render Table Rows
     tableBody.innerHTML = "";
     if (paginatedData.length === 0) {
-      tableBody.innerHTML = `<tr><td colspan="7" class="text-muted text-center p-4">No matching records found.</td></tr>`;
+      tableBody.innerHTML = `<tr><td colspan="3" class="text-muted text-center p-4">No matching records found.</td></tr>`;
     } else {
       paginatedData.forEach(r => {
         const row = document.createElement("tr");
@@ -812,18 +800,6 @@ const DirectoryTab = {
           <td class="hr-name-col">${r.hrInfo.fullName}</td>
           <td class="hr-company-col">
             <div style="font-weight: 700;">${r.hrInfo.companyName}</div>
-            <div style="font-size: 0.8rem; color: var(--text-light);">${r.hrInfo.industryDomain}</div>
-          </td>
-          <td>${r.hrInfo.designation}</td>
-          <td>
-            <div style="font-size:0.85rem;">${r.hrInfo.email}</div>
-            <div style="font-size:0.8rem; color: var(--text-muted);">${r.hrInfo.mobileNumber}</div>
-          </td>
-          <td>${r.hrInfo.city}</td>
-          <td>
-            <a href="${r.hrInfo.linkedinProfile}" target="_blank" class="social-link" title="LinkedIn Profile">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect width="4" height="12" x="2" y="9"/><circle cx="4" cy="4" r="2"/></svg>
-            </a>
           </td>
           <td><span class="badge ${badgeClass}">${r.hiringInsights.hiresFreshers}</span></td>
         `;
@@ -1153,3 +1129,6 @@ async function exportToPdf() {
   // Trigger print view which is styled for PDF output
   window.print();
 }
+
+// Expose functions globally for modular scope access
+window.exportToExcel = exportToExcel;

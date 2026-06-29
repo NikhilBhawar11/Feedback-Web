@@ -469,7 +469,7 @@
                 <p>Searchable contact logs and hiring matrices.</p>
               </div>
               <div class="header-actions-row">
-                <button class="btn btn-primary" id="dir-dl-excel" onclick="exportToExcel()">
+                <button class="btn btn-primary" id="dir-dl-excel">
                   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24"
                     stroke="currentColor" stroke-width="2.5">
                     <path stroke-linecap="round" stroke-linejoin="round"
@@ -487,32 +487,14 @@
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5"
                     d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
                 </svg>
-                <input type="text" id="dir-search" class="search-input" placeholder="Search by name, company, email...">
+                <input type="text" id="dir-search" class="search-input" placeholder="Search by name or company...">
               </div>
               <div class="filters-wrapper">
-                <select id="dir-filter-domain" class="filter-select">
-                  <option value="">All Domains</option>
-                  <option value="Technology">Technology</option>
-                  <option value="Finance">Finance</option>
-                  <option value="Consulting">Consulting</option>
-                  <option value="Healthcare">Healthcare</option>
-                  <option value="E-commerce">E-commerce</option>
-                  <option value="Manufacturing">Manufacturing</option>
-                  <option value="EdTech">EdTech</option>
-                </select>
                 <select id="dir-filter-hiring" class="filter-select">
                   <option value="">All Hiring</option>
                   <option value="Yes">Yes</option>
                   <option value="Occasionally">Occasionally</option>
                   <option value="No">No</option>
-                </select>
-                <select id="dir-filter-salary" class="filter-select">
-                  <option value="">All Salaries</option>
-                  <option value="Less than 3 LPA">Less than 3 LPA</option>
-                  <option value="3-5 LPA">3-5 LPA</option>
-                  <option value="5-8 LPA">5-8 LPA</option>
-                  <option value="8-12 LPA">8-12 LPA</option>
-                  <option value="Above 12 LPA">Above 12 LPA</option>
                 </select>
               </div>
             </div>
@@ -523,11 +505,7 @@
                 <thead>
                   <tr>
                     <th>Full Name</th>
-                    <th>Company / Domain</th>
                     <th>Company Name</th>
-                    <th>Contacts</th>
-                    <th>City</th>
-                    <th>LinkedIn</th>
                     <th>Hires Freshers</th>
                   </tr>
                 </thead>
