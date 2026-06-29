@@ -263,13 +263,20 @@ button {
   width: 100%;
 }
 
+.header-spacer {
+  flex: 1;
+}
+
 .logo {
   display: flex;
   align-items: center;
   gap: 10px;
   font-weight: 800;
-  font-size: 1.3rem;
+  font-size: 1.6rem;
   color: var(--primary);
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .dark .logo {
   color: #60a5fa;
@@ -294,7 +301,13 @@ button {
 .nav-actions {
   display: flex;
   align-items: center;
-  gap: 16px;
+  gap: 10px;
+  margin-left: auto;
+}
+
+.btn-sm {
+  padding: 6px 14px;
+  font-size: 0.8rem;
 }
 
 /* ==========================================
