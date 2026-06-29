@@ -740,7 +740,7 @@ textarea.form-control {
   display: none;
 }
 .star-icon {
-  font-size: 3.2rem;
+  font-size: 4.5rem;
   color: var(--border-color);
   cursor: pointer;
   transition: color var(--transition-fast);
