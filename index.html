@@ -28,8 +28,6 @@
         <span>Sanjivani University</span>
       </a>
       <nav class="nav-actions">
-        <a href="#" class="btn btn-secondary" data-nav="landing">Home</a>
-        <a href="#" class="btn btn-secondary" data-nav="admin" id="nav-admin-link">Admin Dashboard</a>
         <button class="theme-toggle" aria-label="Toggle Dark Mode" title="Toggle Theme">
           <!-- Icon will be injected by JS -->
         </button>
@@ -83,10 +81,11 @@
 
       <!-- Powered By AIML Department -->
       <div class="landing-footer-accent">
-        <div class="container">
-          <p class="powered-text">
+        <div class="container" style="display: flex; flex-direction: column; align-items: center; gap: 12px;">
+          <p class="powered-text" style="margin: 0;">
             Powered by the <span class="dept-highlight">AIML Department</span>
           </p>
+          <a href="#" class="btn btn-secondary" data-nav="admin" style="font-size: 0.85rem; padding: 8px 16px;">Admin Login</a>
         </div>
       </div>
     </section>
@@ -212,7 +211,7 @@
 
                 <!-- Q6: Recruitment Connect Month -->
                 <div class="form-group" style="margin-bottom: 24px;">
-                  <label for="connect-month" style="font-weight: 600; display: block; margin-bottom: 8px;">6. In which month university should connect you for recruitment? <span class="required">*</span></label>
+                  <label for="connect-month" style="font-weight: 600; display: block; margin-bottom: 8px;">6. What would be the right time for our placement team to connect with you for recruitment opportunity? <span class="required">*</span></label>
                   <select id="connect-month" class="form-control" style="width: 100%; border-radius: var(--radius-md); padding: 10px; border: 1px solid var(--border-color); background-color: var(--bg-surface); color: var(--text-main);" required>
                     <option value="">Select Month</option>
                     <option value="January">January</option>
